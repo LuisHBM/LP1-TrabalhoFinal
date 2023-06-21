@@ -34,6 +34,7 @@ typedef struct Contato
     Endereco endereco;
     DataDeNascimento datadeNascimento;
     struct Contato * proximoContato;
+    struct Contato * contatoAnterior;
 }Contato;
 
 /* Função que insere novos contatos na lista */
@@ -54,7 +55,11 @@ void limparTela();
 /* Função que procura o contato na lista pelo nome e me retorna um ponteiro para esse contato*/
 Contato * procurarContato(Contato * listaTelefonica, char * nome);
 
-/*  */
+/* Função que remove um contato */
+void removerContato(Contato * contatoAtual);
+
+/* Função que lê arquivos  */
+
 
 
 

@@ -4,10 +4,11 @@ void limparTela();
 
 void criandoNovoContato(Contato *listaTelefonica)
 {
-    /* Verificar se o arquivo possui algo , se tiver carrega, caso não segue */
+    /* Verificar se o arquivo possui algo , se tiver carrega, caso não, segue */
 
     Contato * novoContato = (Contato *) malloc(sizeof(Contato));
     listaTelefonica->proximoContato = novoContato;
+    novoContato->contatoAnterior = listaTelefonica;
 
     printf("\nDigite o nome do contato: ");
     scanf("%[A-Z a-z]",novoContato->name);
@@ -17,15 +18,12 @@ void criandoNovoContato(Contato *listaTelefonica)
     scanf("%d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
     getchar();
 
-    printf("\nDigite o numero de telefone de %s (XX XXXXX-XXXX)",novoContato->numeroDeContato);
+    printf("\nDigite o numero de telefone de %s (XX XXXXX-XXXX)",novoContato->name);
     scanf("%[0-9 () -]",novoContato->numeroDeContato);
     getchar();
 
     printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
     fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH,stdin);
-    /*A função sscanf não lê da entrada padrão(stdin), mas sim a partir de uma string; 
-    Esse "%[^,]" têm esse -> ' ^ ' que é uma negação, então ele vai ler tudo que não for uma vírgula. Quando ele encontrar uma vígula
-    ele vai parar de ler e alocar no endereco que vocẽ especificou*/
     sscanf(novoContato->endereco.enderecoCompleto, 
         "%[^,], %d, %[^,], %[^,], %[^\n]",
         novoContato->endereco.rua, 
@@ -44,7 +42,7 @@ void exibirMenu()
     printf("\n1.Inserir novo contato");
     printf("\n2.Modificar informações de um contato");
     printf("\n3.Exibir informações de um contato");
-    printf("\n4.Procurar por um contato");
+    printf("\n4.Remover um contato da lista");
     printf("\n0.Sair do programa");
     printf("\n\nDigite sua opção: ");
 }
@@ -62,7 +60,7 @@ void modificarContato(Contato * contatoAtual)
     printf("\n3.Endereço");
     printf("\n4.Número de contato");
     printf("\n0.Sair");
-    printf("\n\nDigite sua opção> ");
+    printf("\n\nDigite sua opção: ");
     scanf("%d", &opcao);
     getchar();
     limparTela();
@@ -86,7 +84,7 @@ void modificarContato(Contato * contatoAtual)
 
             case 3:
             {
-                printf("\nDigite o novo endereço de %s", contatoAtual->name);
+                printf("\nDigite o novo endereço de %s :", contatoAtual->name);
                 fgets(contatoAtual->endereco.enderecoCompleto, MAX_LENGTH,stdin);
                 sscanf(contatoAtual->endereco.enderecoCompleto, 
                         "%[^,], %d, %[^,], %[^,], %[^\n]",
@@ -123,10 +121,13 @@ void modificarContato(Contato * contatoAtual)
 void exibirContato(Contato *contatoAtual)
 {
     limparTela();
+    printf("\nInformações do contato:");
     printf("\nNome: %s", contatoAtual->name);
+    printf("\nNumero de telefone: %s", contatoAtual->numeroDeContato);
     printf("\nData de nascimento: %d/%d/%d", contatoAtual->datadeNascimento.dia,contatoAtual->datadeNascimento.mes, contatoAtual->datadeNascimento.ano);
     printf("\nEndereço: %s", contatoAtual->endereco.enderecoCompleto);
-    printf("\nNumero de telefone: %s", contatoAtual->numeroDeContato);
+    printf("\nContato anterior: %s", contatoAtual->contatoAnterior->name);
+    getchar();
 }
 
 void limparTela()
@@ -138,6 +139,16 @@ void limparTela()
     #endif
 }
 
+void removerContato(Contato *contatoAtual)
+{
+    Contato * aux = contatoAtual->proximoContato;
+    contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
+    contatoAtual->contatoAnterior->proximoContato = aux;
+    free(contatoAtual);
+    printf("\nContato removido com sucesso");
+    getchar();
+}
+
 Contato * procurarContato(Contato *listaTelefonica, char * nome)
 {
     Contato * contatoAtual = listaTelefonica;
@@ -146,7 +157,6 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
         {
             if(strcmp(contatoAtual->name,nome) == 0)
             {   
-                printf("\nhere");
                 contatoEncontrado = true;
                 printf("\nContato encontrado com sucesso!");
                 break;
@@ -164,6 +174,7 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
     if(!contatoEncontrado)
     {
         printf("\nContato não encontrado");
+        return listaTelefonica;
 
     }
     else
