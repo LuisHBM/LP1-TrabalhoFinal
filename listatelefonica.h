@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <stdbool.h>
 
 #define NOME 40
 #define MAX_LENGTH 100
@@ -37,7 +38,19 @@ typedef struct Contato
 
 
 /* Função que insere novos contatos na lista */
-void inserindoContatos(Contato * listaTelefonica);
+void criandoNovoContato(Contato * listaTelefonica);
+
+/* Função que printa o menu */
+void exibirMenu();
+
+/* Função que seta os atributos de um contato passado no parâmetro */
+void modificarContato(Contato * contatoAtual);
+
+/* Função que exibe as informações de um contato */
+void exibirContato(Contato * contatoAtual);
+
+/* Função que limpa o terminal */
+void limparTela();
 
 
 
