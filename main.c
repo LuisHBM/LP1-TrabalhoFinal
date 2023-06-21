@@ -1,11 +1,13 @@
 #include "listatelefonica.h"
 
+
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
     Contato listaTelefonica;
     Contato *contatoAtual = &listaTelefonica;
-    
+
+    char strAux[MAX_LENGTH];
     bool listaInicializada = false;
     int opcao;
     do
@@ -54,6 +56,21 @@ int main(void)
                     break;
                 }
             }
+
+            case 4:
+                /* Verifica se a lista foi inicializada */
+                if(!listaInicializada)
+                {
+                    printf("\nAinda não há contatos na lista telefônica!");
+                    printf("\nAcesse a opção número '1' para cadastrar novos contatos");
+                    break;
+                }
+                else
+                {
+                    printf("\nDigite o nome do contato: ");
+                    scanf("%[A-Z a-z]", strAux);
+                    procurarContato(contatoAtual, strAux);
+                }
 
             case 0:
             {

@@ -52,6 +52,9 @@ void exibirContato(Contato * contatoAtual);
 /* Função que limpa o terminal */
 void limparTela();
 
+/* Função que procura o contato na lista pelo nome */
+Contato * procurarContato(Contato * listaTelefonica, char * nome);
+
 
 
 
