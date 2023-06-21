@@ -1,11 +1,13 @@
 #include "listatelefonica.h"
 
 
+
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
     Contato listaTelefonica;
     Contato *contatoAtual = &listaTelefonica;
+    listaTelefonica.proximoContato = contatoAtual;
 
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
@@ -69,7 +71,8 @@ int main(void)
                 {
                     printf("\nDigite o nome do contato: ");
                     scanf("%[A-Z a-z]", strAux);
-                    procurarContato(contatoAtual, strAux);
+                    procurarContato(&listaTelefonica, strAux);
+                    break;
                 }
 
             case 0:

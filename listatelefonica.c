@@ -46,7 +46,7 @@ void exibirMenu()
     printf("\n3.Exibir informações de um contato");
     printf("\n4.Procurar por um contato");
     printf("\n0.Sair do programa");
-    printf("\n\nDigite sua opção");
+    printf("\n\nDigite sua opção: ");
 }
 
 void modificarContato(Contato * contatoAtual)
@@ -62,7 +62,7 @@ void modificarContato(Contato * contatoAtual)
     printf("\n3.Endereço");
     printf("\n4.Número de contato");
     printf("\n0.Sair");
-    printf("\n\nDigite sua opção");
+    printf("\n\nDigite sua opção> ");
     scanf("%d", &opcao);
     getchar();
     limparTela();
@@ -138,21 +138,25 @@ void limparTela()
     #endif
 }
 
-Contato *procurarContato(Contato *listaTelefonica, char * nome)
+Contato * procurarContato(Contato *listaTelefonica, char * nome)
 {
     Contato * contatoAtual = listaTelefonica;
     bool contatoEncontrado = false;
-        while(contatoAtual->proximoContato == NULL)
+        while(true)
         {
-            if(strcmp(listaTelefonica->name,nome) == 0)
+            if(strcmp(contatoAtual->name,nome) == 0)
             {   
+                printf("\nhere");
                 contatoEncontrado = true;
                 printf("\nContato encontrado com sucesso!");
-                return contatoAtual;
+                break;
             }
             else
             {
-
+                if(contatoAtual->proximoContato == NULL)
+                {
+                    break;
+                }
                 contatoAtual = contatoAtual->proximoContato;
             }
         }
@@ -160,5 +164,10 @@ Contato *procurarContato(Contato *listaTelefonica, char * nome)
     if(!contatoEncontrado)
     {
         printf("\nContato não encontrado");
+
+    }
+    else
+    {
+        return contatoAtual;
     }
 }
