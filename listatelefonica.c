@@ -8,7 +8,7 @@ void inserindoContatos(Contato *listaTelefonica)
     Contato * novoContato = (Contato *) malloc(sizeof(Contato));
     listaTelefonica->proximoContato = novoContato;
     printf("\nDigite o nome do contato: ");
-    scanf("%s",novoContato->name);
+    scanf("%[A-Z a-z]",novoContato->name);
     getchar();
     printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
     scanf("%d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
