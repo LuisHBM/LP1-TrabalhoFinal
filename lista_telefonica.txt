@@ -1,6 +1,6 @@
 -------->Lista telefônica<------------
-Nome: Kalvin
-Data de nascimento: 15 11 2002
-Endereço: a,2,a,q,z
+Nome: Nina
+Data de nascimento: 15 11 22
+Endereço: a,1,a,a,a
 Numero de telefone: 1212
 

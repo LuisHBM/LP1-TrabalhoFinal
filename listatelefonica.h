@@ -56,7 +56,7 @@ void limparTela();
 Contato * procurarContato(Contato * listaTelefonica, char * nome);
 
 /* Função que remove um contato */
-void removerContato(Contato * contatoAtual);
+void removerContato(Contato * contatoAtual, Contato * listaTelefonica);
 
 /* Função que lê arquivos  */
 void lerArquivos(Contato * listaTelefonica);

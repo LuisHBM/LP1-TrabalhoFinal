@@ -10,6 +10,7 @@ int main(void)
     Contato listaTelefonica;
     listaTelefonica.proximoContato = NULL;
     listaTelefonica.contatoAnterior = NULL;
+    strcpy(listaTelefonica.name,"ListaTelefonica");
 
     /* Ponteiro que simboliza o contato atual. Como o topo da lista é o único até aqui, ele é o atual */
   
@@ -126,7 +127,7 @@ int main(void)
                     }
                     else
                     {
-                        removerContato(contatoProcurado);
+                        removerContato(contatoProcurado,&listaTelefonica);
                     }
                     break;
                 }
@@ -134,6 +135,7 @@ int main(void)
 
             case 0:
             {
+                salvarArquivos(&listaTelefonica);
                 break;
             }
             default:
@@ -144,10 +146,6 @@ int main(void)
         }
         
     }while(opcao != 0);
-
-    Contato *contatoAtual = &listaTelefonica;
-    salvarArquivos(&listaTelefonica);
-
 
 
     return 0;

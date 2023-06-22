@@ -185,7 +185,6 @@ void lerArquivos(Contato * listaTelefonica)
             {
                 sscanf(linha,"Numero de telefone: %s", numeroDeContato);
             }
-            //printf("%s",linha);
         }
         inserirContatosDoArquivo(listaTelefonica,nome,endereco,dataDeNascimento,numeroDeContato);
     }
@@ -205,7 +204,6 @@ void salvarArquivos(Contato* listaTelefonica) {
     {
 
         contatoAtual = contatoAtual->proximoContato;
-
         arquivo = fopen("../lista_telefonica.txt", "w, ccs=UTF-8");
         if (arquivo == NULL) 
         {
@@ -253,22 +251,24 @@ void inserirContatosDoArquivo(Contato * contatoAtual, char * nome, Endereco ende
     strcpy(novoContato->name, nome);
 }
 
-void removerContato(Contato *contatoAtual)
+void removerContato(Contato *contatoAtual, Contato * listaTelefonica)
 {
     Contato * aux = contatoAtual->proximoContato;
-
+    
     if (contatoAtual->proximoContato != NULL)
     {
         contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
     }
-    else if (contatoAtual->contatoAnterior != NULL)
+    if (contatoAtual->contatoAnterior != NULL)
     {
         contatoAtual->contatoAnterior->proximoContato = aux;
     }
 
     free(contatoAtual);
+    limparTela();
     printf("\nContato removido com sucesso");
     getchar();
+
 }
 
 Contato * procurarContato(Contato *listaTelefonica, char * nome)
