@@ -30,7 +30,9 @@ void criandoNovoContato(Contato *listaTelefonica)
         novoContato->endereco.cidade, 
         novoContato->endereco.estado);
 
+    system("clear||cls");
     printf("\nDados cadastrados com sucesso!");
+    getchar();
 
     salvarArquivos(novoContato);
 }
@@ -214,8 +216,12 @@ void inserirContatosDoArquivo(Contato * contatoAtual, char * nome, Endereco ende
 void removerContato(Contato *contatoAtual)
 {
     Contato * aux = contatoAtual->proximoContato;
-    contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
-    contatoAtual->contatoAnterior->proximoContato = aux;
+
+    if (contatoAtual->proximoContato != NULL)
+        contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
+    if (contatoAtual->contatoAnterior != NULL)
+        contatoAtual->contatoAnterior->proximoContato = aux;
+
     free(contatoAtual);
     printf("\nContato removido com sucesso");
     getchar();
@@ -246,6 +252,8 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
     if(!contatoEncontrado)
     {
         printf("\nContato não encontrado");
+        getchar();
+        limparTela();
         return listaTelefonica;
 
     }
