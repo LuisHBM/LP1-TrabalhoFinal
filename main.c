@@ -9,6 +9,9 @@ int main(void)
     Contato *contatoAtual = &listaTelefonica;
     listaTelefonica.proximoContato = contatoAtual;
 
+    lerArquivos(contatoAtual);
+    getchar();
+
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
     int opcao;
