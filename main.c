@@ -10,7 +10,6 @@ int main(void)
     listaTelefonica.proximoContato = contatoAtual;
 
     lerArquivos(contatoAtual);
-    getchar();
 
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
@@ -23,7 +22,7 @@ int main(void)
         getchar();
         switch(opcao)
         {    
-            /* Criant contato */
+            /* Criar contato */
             case 1:
             {
                 listaInicializada = true;
@@ -57,6 +56,7 @@ int main(void)
                     }
                     else
                     {
+                        limparTela();
                         modificarContato(contatoProcurado);
                         exibirContato(contatoProcurado);
                     }
