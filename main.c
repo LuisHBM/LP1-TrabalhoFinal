@@ -12,7 +12,7 @@ int main(void)
     listaTelefonica.contatoAnterior = NULL;
 
     /* Ponteiro que simboliza o contato atual. Como o topo da lista é o único até aqui, ele é o atual */
-    Contato *contatoAtual = &listaTelefonica;
+  
     
 /*     listaTelefonica.proximoContato = contatoAtual;
     contatoAtual->contatoAnterior = &listaTelefonica; */
@@ -134,7 +134,7 @@ int main(void)
 
             case 0:
             {
-                return 0;
+                break;
             }
             default:
             {
@@ -144,6 +144,10 @@ int main(void)
         }
         
     }while(opcao != 0);
+
+    Contato *contatoAtual = &listaTelefonica;
+    salvarArquivos(&listaTelefonica);
+
 
 
     return 0;

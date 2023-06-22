@@ -16,7 +16,7 @@ void criandoNovoContato(Contato *listaTelefonica)
     novoContato->proximoContato = NULL;
 
     printf("\nDigite o nome do contato: ");
-    fgets(novoContato->name, MAX_LENGTH,stdin);
+    fgets(novoContato->name, NOME,stdin);
     novoContato->name[strcspn(novoContato->name, "\n")] = '\0';
 
 
@@ -192,23 +192,54 @@ void lerArquivos(Contato * listaTelefonica)
     fclose(arquivo);
 }
 
-void salvarArquivos(Contato * contatoAtual)
-{
-    FILE * arquivo;
-    arquivo = fopen("../lista_telefonica.txt", "w");
-    if(arquivo == NULL)
+void salvarArquivos(Contato* listaTelefonica) {
+    FILE* arquivo;
+    Contato* contatoAtual = listaTelefonica;
+    if(listaTelefonica->proximoContato == NULL)
     {
-        printf("\nO arquivo não foi encontrado");
+        limparTela();
+        printf("\nNenhum contato foi salvo, pois não havia contatos a serem gravados!");
+        getchar();
     }
     else
-    {   
-        fprintf(arquivo, "Nome: %s", contatoAtual->name);
-        fprintf(arquivo, "\nData de nascimento: %d %d %d", contatoAtual->datadeNascimento.dia, contatoAtual->datadeNascimento.mes, contatoAtual->datadeNascimento.ano);
-        fprintf(arquivo, "\nEndereço: %s", contatoAtual->endereco.enderecoCompleto);
-        fprintf(arquivo, "\nNumero de telefone: %s", contatoAtual->numeroDeContato);
+    {
+
+        contatoAtual = contatoAtual->proximoContato;
+
+        arquivo = fopen("../lista_telefonica.txt", "w, ccs=UTF-8");
+        if (arquivo == NULL) 
+        {
+            printf("\nO arquivo não foi encontrado");
+        } 
+        else 
+        {
+            fprintf(arquivo, "-------->Lista telefônica<------------\n");
+            fclose(arquivo);
+
+            arquivo = fopen("../lista_telefonica.txt", "a, ccs=UTF-8");
+            if (arquivo == NULL)
+            {
+                printf("\nO arquivo não foi encontrado");
+            } 
+            else 
+            {
+                while (contatoAtual != NULL) 
+                {
+                    fprintf(arquivo, "Nome: %s", contatoAtual->name);
+                    fprintf(arquivo, "\nData de nascimento: %d %d %d", contatoAtual->datadeNascimento.dia, contatoAtual->datadeNascimento.mes, contatoAtual->datadeNascimento.ano);
+                    fprintf(arquivo, "\nEndereço: %s", contatoAtual->endereco.enderecoCompleto);
+                    fprintf(arquivo, "Numero de telefone: %s\n\n", contatoAtual->numeroDeContato);
+                    contatoAtual = contatoAtual->proximoContato;
+                }
+                fclose(arquivo);
+            }
+        }
+        limparTela();
+        printf("\nTodos os contatos foram salvos com sucesso!");
+        getchar();
     }
-    fclose(arquivo);
 }
+
 
 void inserirContatosDoArquivo(Contato * contatoAtual, char * nome, Endereco endereco, DataDeNascimento dataDeNascimento, char *numeroDeContato)
 {

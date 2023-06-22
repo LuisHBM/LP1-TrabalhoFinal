@@ -62,7 +62,7 @@ void removerContato(Contato * contatoAtual);
 void lerArquivos(Contato * listaTelefonica);
 
 /* Função que salva informações no arquivo */
-void salvarArquivos(Contato * contatoAtual);
+void salvarArquivos(Contato * listaTelefonica);
 
 /* Função que cria novos contatos a partir do arquvo */
 void inserirContatosDoArquivo(Contato * contatoAtual, char * nome, Endereco endereco, DataDeNascimento dataDeNascimento, char * numeroDeContato);
