@@ -2,22 +2,31 @@
 
 void criandoNovoContato(Contato *listaTelefonica)
 {
+    Contato * ultimoContatoDaLista = listaTelefonica;
+
     /* Verificar se o arquivo possui algo , se tiver carrega, caso não, segue */
+    while(ultimoContatoDaLista->proximoContato != NULL)
+    {
+        ultimoContatoDaLista = ultimoContatoDaLista->proximoContato;
+    }
 
     Contato * novoContato = (Contato *) malloc(sizeof(Contato));
-    listaTelefonica->proximoContato = novoContato;
-    novoContato->contatoAnterior = listaTelefonica;
+    ultimoContatoDaLista->proximoContato = novoContato;
+    novoContato->contatoAnterior = ultimoContatoDaLista;
+    novoContato->proximoContato = NULL;
 
     printf("\nDigite o nome do contato: ");
-    scanf("%[A-Z a-z]",novoContato->name);
-    getchar();
+    fgets(novoContato->name, MAX_LENGTH,stdin);
+    novoContato->name[strcspn(novoContato->name, "\n")] = '\0';
+
 
     printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
-    scanf("%d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
-    getchar();
+    scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
+
 
     printf("\nDigite o numero de telefone de %s (XX XXXXX-XXXX)",novoContato->name);
-    scanf("%[0-9 () -]",novoContato->numeroDeContato);
+    scanf(" %[0-9 () -]",novoContato->numeroDeContato);
+    novoContato->numeroDeContato[strcspn(novoContato->name, "\n")] = '\0';
     getchar();
 
     printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
@@ -33,8 +42,8 @@ void criandoNovoContato(Contato *listaTelefonica)
     system("clear||cls");
     printf("\nDados cadastrados com sucesso!");
     getchar();
+    
 
-    salvarArquivos(novoContato);
 }
 
 void exibirMenu()
@@ -218,9 +227,13 @@ void removerContato(Contato *contatoAtual)
     Contato * aux = contatoAtual->proximoContato;
 
     if (contatoAtual->proximoContato != NULL)
+    {
         contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
-    if (contatoAtual->contatoAnterior != NULL)
+    }
+    else if (contatoAtual->contatoAnterior != NULL)
+    {
         contatoAtual->contatoAnterior->proximoContato = aux;
+    }
 
     free(contatoAtual);
     printf("\nContato removido com sucesso");
@@ -255,7 +268,6 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
         getchar();
         limparTela();
         return listaTelefonica;
-
     }
     else
     {

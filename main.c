@@ -5,11 +5,19 @@
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
-    Contato listaTelefonica;
-    Contato *contatoAtual = &listaTelefonica;
-    listaTelefonica.proximoContato = contatoAtual;
 
-    lerArquivos(contatoAtual);
+    /* Topo da lista */
+    Contato listaTelefonica;
+    listaTelefonica.proximoContato = NULL;
+    listaTelefonica.contatoAnterior = NULL;
+
+    /* Ponteiro que simboliza o contato atual. Como o topo da lista é o único até aqui, ele é o atual */
+    Contato *contatoAtual = &listaTelefonica;
+    
+/*     listaTelefonica.proximoContato = contatoAtual;
+    contatoAtual->contatoAnterior = &listaTelefonica; */
+
+    //lerArquivos(contatoAtual);
 
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
@@ -26,8 +34,7 @@ int main(void)
             case 1:
             {
                 listaInicializada = true;
-                criandoNovoContato(contatoAtual);
-                contatoAtual = contatoAtual->proximoContato;
+                criandoNovoContato(&listaTelefonica);
                 break;
             }
 

@@ -71,3 +71,4 @@ void inserirContatosDoArquivo(Contato * contatoAtual, char * nome, Endereco ende
 
 
 
+
