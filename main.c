@@ -12,20 +12,15 @@ int main(void)
     listaTelefonica.contatoAnterior = NULL;
     strcpy(listaTelefonica.name,"ListaTelefonica");
 
-    /* Ponteiro que simboliza o contato atual. Como o topo da lista é o único até aqui, ele é o atual */
-  
-    
-/*     listaTelefonica.proximoContato = contatoAtual;
-    contatoAtual->contatoAnterior = &listaTelefonica; */
-
-    //lerArquivos(contatoAtual);
-
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
+    lerArquivos(&listaTelefonica, &listaInicializada);
+
+
     int opcao;
     do
     {
-        limparTela();
+        //limparTela();
         exibirMenu();
         scanf("%d", &opcao);
         getchar();
