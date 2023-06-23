@@ -91,6 +91,7 @@ int main(void)
                     }
                     else
                     {
+                        limparTela();
                         exibirContato(contatoProcurado);
                     }
                     break;
