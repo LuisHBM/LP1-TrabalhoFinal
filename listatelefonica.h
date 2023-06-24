@@ -77,3 +77,6 @@ void exibicao(Contato * listaTelefonica);
 
 /* Função que verifica se a lista foi iniciada */
 bool verificarInicializacaoDaLista(bool listaInicializada);
+
+/* Função que desaloca a memória alocada ao fim do programa*/
+void liberarMemoria(Contato * listaTelefonica);

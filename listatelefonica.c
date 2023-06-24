@@ -380,6 +380,19 @@ bool verificarInicializacaoDaLista(bool listaInicializada)
     return true;
 }
 
+void liberarMemoria(Contato *listaTelefonica)
+{
+    Contato * contatoAtual = listaTelefonica;
+    Contato * proximoContato = NULL;
+
+    while(contatoAtual != NULL)
+    {
+        proximoContato = contatoAtual->proximoContato;
+        free(contatoAtual);
+        contatoAtual = proximoContato;
+    }
+}
+
 void exibicao(Contato * listaTelefonica)
 {
     char strAux[MAX_LENGTH];

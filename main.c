@@ -91,8 +91,13 @@ int main(void)
 
             case 0:
             {
-                /* Quando o usuário deseja encerrar o programa, todos os contatos são salvos no arquivo*/
+                /* Quando o usuário deseja encerrar o programa, todos os contatos são salvos no arquivo e toda a memória é desalocada.*/
                 salvarArquivos(&listaTelefonica);
+                
+                /* Variável para passar o ponteiro do primeiro objeto da lista, pois se eu passar a variável 'listaTelefonica'
+                ela não será desalocada, pois não foi alocada dinamicamente.*/
+                Contato * primeiroContato = listaTelefonica.proximoContato;
+                liberarMemoria(primeiroContato);
                 break;
             }
             default:
