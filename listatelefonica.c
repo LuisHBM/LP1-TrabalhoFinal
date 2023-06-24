@@ -485,11 +485,9 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
 {
     Contato * contatoAtual = listaTelefonica;
     bool contatoEncontrado = false;
-    int flag =0;
+    
     while(contatoAtual != NULL)
     {
-        flag ++;
-        printf("Contato %d : %s", flag, contatoAtual->name);
         if(strcmp(contatoAtual->name,nome) == 0)
         {   
             printf("\nContato encontrado com sucesso!");
