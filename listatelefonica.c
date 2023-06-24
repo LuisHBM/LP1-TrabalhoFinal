@@ -348,8 +348,8 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         printf("\nEstado: %s",contatos[i]->endereco.estado);
         printf("\nData de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
         printf("//----------------------------------//\n");
-        printf("\n\nDigite qualquer tecla para continuar");
     }
+    printf("\n\nDigite qualquer tecla para continuar");
     getchar();
 }
 
