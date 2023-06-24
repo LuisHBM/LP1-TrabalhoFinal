@@ -272,11 +272,8 @@ void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco e
 
 
 
-void removerContato(Contato *contatoAtual, Contato * listaTelefonica)
+void removerContato(char * contatoProcurado, Contato * listaTelefonica)
 {
-    char contatoProcurado[MAX_LENGTH];
-    strcpy(contatoProcurado, contatoAtual->name);
-
     Contato * contato = listaTelefonica->proximoContato;
     Contato * contatoAnterior = listaTelefonica;
 

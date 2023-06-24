@@ -112,16 +112,7 @@ int main(void)
                     printf("\nDigite o nome do contato que deseja encontrar: ");
                     scanf("%[A-Z a-z]", strAux);
                     getchar();
-                
-                    contatoProcurado = procurarContato(&listaTelefonica,strAux);
-                    if(contatoProcurado == &listaTelefonica)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        removerContato(contatoProcurado,&listaTelefonica);
-                    }
+                    removerContato(strAux,&listaTelefonica);
                     break;
                 }
             }

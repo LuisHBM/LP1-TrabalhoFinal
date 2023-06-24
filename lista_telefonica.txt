@@ -19,8 +19,3 @@ Data de nascimento: 23 32 32
 Endereço: b, 22, e, c, e
 Numero de telefone: 2131
 
-Nome: Kalvin
-Data de nascimento: 15 11 22
-Endereço: a,2,a,a,a
-Numero de telefone: 12121
-
