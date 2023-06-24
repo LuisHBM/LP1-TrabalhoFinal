@@ -68,7 +68,6 @@ int main(void)
                 /* Verifica se a lista foi inicializada */
                 if(verificarInicializacaoDaLista(listaInicializada))
                 {
-                    getchar();
                     /* Vai para o menu de exibição */
                     exibicao(&listaTelefonica);
                 }

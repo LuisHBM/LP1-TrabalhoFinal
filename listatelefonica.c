@@ -370,6 +370,7 @@ bool verificarInicializacaoDaLista(bool listaInicializada)
 {
     if(!listaInicializada)
     {
+        limparTela();
         printf("\nAinda não há contatos na lista telefônica!");
         printf("\nAcesse a opção número '1' para cadastrar novos contatos");
         getchar(); 
