@@ -72,6 +72,8 @@ void exibirContatosOrdenados(Contato* listaTelefonica);
 /* Função que conta quantos contatos há na lista */
 int contadorDeContatos(Contato * listaTelefonica);
 
-
 /* Função que exibe e controla o menu de exibição */
 void exibicao(Contato * listaTelefonica);
+
+/* Função que verifica se a lista foi iniciada */
+bool verificarInicializacaoDaLista(bool listaInicializada);

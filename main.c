@@ -40,76 +40,58 @@ int main(void)
             case 2:
             {
                 /* Verifica se a lista foi inicializada */
-                if(!listaInicializada)
-                {
-                    printf("\nAinda não há contatos na lista telefônica!");
-                    printf("\nAcesse a opção número '1' para cadastrar novos contatos");
-                    getchar();
-                    break;
-                }
-                else
+                if(verificarInicializacaoDaLista(listaInicializada))
                 {   
                     Contato * contatoProcurado;
                     printf("\nDigite o nome do contato que deseja encontrar: ");
                     scanf("%[A-Z a-z]", strAux);
                     getchar();
 
+                    /* Procura pelo contato que o usuário deseja modificar */
                     contatoProcurado = procurarContato(&listaTelefonica,strAux);
-                    if(contatoProcurado == &listaTelefonica)
-                    {
-                        continue;
-                    }
-                    else
+                    if(contatoProcurado != NULL)
                     {
                         limparTela();
+                        /* Modifica o contato desejado */
                         modificarContato(contatoProcurado);
+                        /* Após as modificações exibe o estado do novo contato */
                         exibirContato(contatoProcurado);
                     }
-                    break;
                 }
+
+                break;
             }
+
             /* Exibir contato */
             case 3:
             {
                 /* Verifica se a lista foi inicializada */
-                if(!listaInicializada)
+                if(verificarInicializacaoDaLista(listaInicializada))
                 {
-                    printf("\nAinda não há contatos na lista telefônica!");
-                    printf("\nAcesse a opção número '1' para cadastrar novos contatos");
-                    getchar();  
-                    break;
-                }
-                else
-                {   
+                    getchar();
+                    /* Vai para o menu de exibição */
                     exibicao(&listaTelefonica);
-                    break;
                 }
+                break;
             }
 
             /* Remover contato */
             case 4:
             {
                 /* Verifica se a lista foi inicializada */
-                if(!listaInicializada)
+                if(verificarInicializacaoDaLista(listaInicializada))
                 {
-                    printf("\nAinda não há contatos na lista telefônica!");
-                    printf("\nAcesse a opção número '1' para cadastrar novos contatos");
-                    getchar();
-                    break;
-                }
-                else
-                {   
-                    Contato * contatoProcurado;
                     printf("\nDigite o nome do contato que deseja encontrar: ");
                     scanf("%[A-Z a-z]", strAux);
                     getchar();
                     removerContato(strAux,&listaTelefonica);
-                    break;
                 }
+                break;
             }
 
             case 0:
             {
+                /* Quando o usuário deseja encerrar o programa, todos os contatos são salvos no arquivo*/
                 salvarArquivos(&listaTelefonica);
                 break;
             }

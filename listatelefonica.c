@@ -60,7 +60,6 @@ void modificarContato(Contato * contatoAtual)
 {
     limparTela();
 
-
     int opcao;
     do{
     printf("\nO que deseja modificar?");
@@ -73,6 +72,7 @@ void modificarContato(Contato * contatoAtual)
     scanf("%d", &opcao);
     getchar();
     limparTela();
+
         switch(opcao)
         {
             case 1:
@@ -109,7 +109,7 @@ void modificarContato(Contato * contatoAtual)
             case 4:
             {
                 printf("\nDigite o novo numero de telefone de %s (XX XXXXX-XXXX)",contatoAtual->numeroDeContato);
-                scanf("%[0-9 () -]",contatoAtual->numeroDeContato);
+                scanf("%[0-9 ]",contatoAtual->numeroDeContato);
                 getchar();                
                 break;
             }
@@ -134,7 +134,13 @@ void exibirContato(Contato *contatoAtual)
     printf("\nNome: %s", contatoAtual->name);
     printf("\nNumero de telefone: %s", contatoAtual->numeroDeContato);
     printf("\nData de nascimento: %d/%d/%d", contatoAtual->datadeNascimento.dia,contatoAtual->datadeNascimento.mes, contatoAtual->datadeNascimento.ano);
-    printf("\nEndereço: %s", contatoAtual->endereco.enderecoCompleto);
+    printf("\nEndereço:");
+    printf("\nRua: %s", contatoAtual->endereco.rua);
+    printf("\nNúmero: %d",contatoAtual->endereco.numero);
+    printf("\nBairro: %s", contatoAtual->endereco.bairro);
+    printf("\nCidade: %s",contatoAtual->endereco.cidade);
+    printf("\nEstado: %s",contatoAtual->endereco.estado);
+    printf("\n\nDigite qualquer tecla para continuar");
     getchar();
 }
 
@@ -217,6 +223,8 @@ void lerArquivos(Contato * listaTelefonica, bool * listaInicializada)
 void salvarArquivos(Contato* listaTelefonica) {
     FILE* arquivo;
     Contato* contatoAtual = listaTelefonica;
+
+    /*Caso não haja nenhum contato cadastrado*/
     if(listaTelefonica->proximoContato == NULL)
     {
         limparTela();
@@ -225,25 +233,35 @@ void salvarArquivos(Contato* listaTelefonica) {
     }
     else
     {
-
         contatoAtual = contatoAtual->proximoContato;
+        /* Abre o arquivo em modo escrita, sobreescrevendo tudo que havia ali 
+        O ccs=UTF-8 é só para dizer ao SO escrever no arquivo em uma linguagem padrão.
+        Estava acontecendo de caracteres como 'ç' ficarem desfigurados no arquivo*/
         arquivo = fopen("../lista_telefonica.txt", "w, ccs=UTF-8");
+
+        /* Verifica se o arquivo foi encontrado */
         if (arquivo == NULL) 
         {
             printf("\nO arquivo não foi encontrado");
         } 
         else 
         {
+            /* Escreve o print abaixo apenas para sobreescrever tudo que havia ali e fechar o arquivo*/
             fprintf(arquivo, "-------->Lista telefônica<------------\n");
             fclose(arquivo);
 
+            /* O arquivo sobreescrito e vazio então é aberto novamento em modo 'add' para que todos os contatos
+            sejam escritos somente ao final do arquivo */
             arquivo = fopen("../lista_telefonica.txt", "a, ccs=UTF-8");
+
+            /* Verifica novamente se o arquivo foi encontrado, apenas por precaução*/
             if (arquivo == NULL)
             {
                 printf("\nO arquivo não foi encontrado");
             } 
             else 
             {
+                /* Itera toda a lista até que ela seja completamente percorrida*/
                 while (contatoAtual != NULL) 
                 {
                     fprintf(arquivo, "Nome: %s", contatoAtual->name);
@@ -317,6 +335,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         }
     }
 
+    /* Printa as informações do contato */
     for (i = 0; i < numContatos; i++) 
     {
         printf("Nome: %s\n", contatos[i]->name);
@@ -329,6 +348,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         printf("\nEstado: %s",contatos[i]->endereco.estado);
         printf("\nData de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
         printf("//----------------------------------//\n");
+        printf("\n\nDigite qualquer tecla para continuar");
     }
     getchar();
 }
@@ -346,6 +366,20 @@ int contadorDeContatos(Contato *listaTelefonica)
     return totalDeContatos;
 }
 
+bool verificarInicializacaoDaLista(bool listaInicializada)
+{
+    if(!listaInicializada)
+    {
+        printf("\nAinda não há contatos na lista telefônica!");
+        printf("\nAcesse a opção número '1' para cadastrar novos contatos");
+        getchar(); 
+
+        return false;
+    }
+
+    return true;
+}
+
 void exibicao(Contato * listaTelefonica)
 {
     char strAux[MAX_LENGTH];
@@ -353,15 +387,17 @@ void exibicao(Contato * listaTelefonica)
     do
     {
         limparTela();
-        printf("\nO que você deseja?:\n");
+        printf("\nO que você deseja fazer?");
         printf("\n1.Exibir todos os contatos cadastrados em ordem alfabética");
         printf("\n2.Exibir um contato específico");
         printf("\n0.Sair");
         printf("\n\nDigite sua opção: ");
         scanf("%d", &opcao);
         getchar();
+
         switch(opcao)
         {
+            /* Exibe todos os contatos ordenados por ordem alfabética */
             case 1:
             {
                 limparTela();
@@ -369,14 +405,16 @@ void exibicao(Contato * listaTelefonica)
                 break;
             }
 
+            /* Exibe as informações de um contato em específico */
             case 2:
             {
+                limparTela();
                 Contato * contatoProcurado;
                 printf("\nDigite o nome do contato que deseja encontrar: ");
                 fgets(strAux, MAX_LENGTH, stdin);
                 strAux[strcspn(strAux, "\n")] = '\0';
-
             
+                /* Procura pelo contato, caso exista suas informações serão exibidas*/
                 contatoProcurado = procurarContato(listaTelefonica,strAux);
                 if(contatoProcurado != NULL)
                 {
@@ -407,8 +445,9 @@ void removerContato(char * contatoProcurado, Contato * listaTelefonica)
     Contato * contato = listaTelefonica->proximoContato;
     Contato * contatoAnterior = listaTelefonica;
 
+    /* Enquanto não for o fim da lista */
     while(contato != NULL)
-    {
+    {   
         if(strcmp(contatoProcurado, contato->name) == 0)
         {
             contatoAnterior->proximoContato = contato->proximoContato;
