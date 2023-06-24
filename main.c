@@ -17,7 +17,7 @@ int main(void)
     int opcao;
     do
     {
-        //limparTela();
+        limparTela();
         exibirMenu();
         scanf("%d", &opcao);
         getchar();
@@ -76,21 +76,7 @@ int main(void)
                 }
                 else
                 {   
-                    Contato * contatoProcurado;
-                    printf("\nDigite o nome do contato que deseja encontrar: ");
-                    scanf("%[A-Z a-z]", strAux);
-                    getchar();
-                
-                    contatoProcurado = procurarContato(&listaTelefonica,strAux);
-                    if(contatoProcurado == &listaTelefonica)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        limparTela();
-                        exibirContato(contatoProcurado);
-                    }
+                    exibição(&listaTelefonica);
                     break;
                 }
             }
@@ -130,8 +116,6 @@ int main(void)
         }
         
     }while(opcao != 0);
-
-exibirContatosOrdenados(&listaTelefonica);
 
     return 0;
 }

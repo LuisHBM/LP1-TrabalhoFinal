@@ -4,11 +4,6 @@ Data de nascimento: 23 10 2002
 Endereço: b 22 c d e
 Numero de telefone: 1232
 
-Nome: Luis
-Data de nascimento: 23 10 2002
-Endereço: b 2 v c e
-Numero de telefone: 1313
-
 Nome: Glenda
 Data de nascimento: 23 10 2002
 Endereço: b, 2, e, r, w
