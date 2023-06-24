@@ -3,49 +3,45 @@
 void criandoNovoContato(Contato *listaTelefonica)
 {
     Contato * ultimoContatoDaLista = listaTelefonica;
-
+    /* Certificando-se que o contato atual é o último contato da lista */
     while(ultimoContatoDaLista->proximoContato != NULL)
     {
         ultimoContatoDaLista = ultimoContatoDaLista->proximoContato;
     }
-    if(ultimoContatoDaLista->proximoContato == NULL)
-    {
-        Contato * novoContato = (Contato *) malloc(sizeof(Contato));
-        ultimoContatoDaLista->proximoContato = novoContato;
-        novoContato->proximoContato = NULL;
 
-        printf("\nDigite o nome do contato: ");
-        fgets(novoContato->name, NOME,stdin);
-        novoContato->name[strcspn(novoContato->name, "\n")] = '\0';
+    Contato * novoContato = (Contato *) malloc(sizeof(Contato));
+    ultimoContatoDaLista->proximoContato = novoContato;
+    novoContato->proximoContato = NULL;
 
-
-        printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
-        scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
+    printf("\nDigite o nome do contato: ");
+    fgets(novoContato->name, NOME,stdin);
+    novoContato->name[strcspn(novoContato->name, "\n")] = '\0';
 
 
-        printf("\nDigite o numero de telefone de %s (XX XXXXX-XXXX)",novoContato->name);
-        scanf(" %[0-9 () -]",novoContato->numeroDeContato);
-        novoContato->numeroDeContato[strcspn(novoContato->name, "\n")] = '\0';
+    printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
+    scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
 
-        getchar();
 
-        printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
-        fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH,stdin);
-        novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
-        sscanf(novoContato->endereco.enderecoCompleto, 
-            "%[^,], %d, %[^,], %[^,], %[^\n]",
-            novoContato->endereco.rua, 
-            &novoContato->endereco.numero, 
-            novoContato->endereco.bairro, 
-            novoContato->endereco.cidade, 
-            novoContato->endereco.estado);
+    printf("\nDigite o numero de telefone de %s (XX XXXXX-XXXX)",novoContato->name);
+    scanf(" %[0-9 () -]",novoContato->numeroDeContato);
+    novoContato->numeroDeContato[strcspn(novoContato->name, "\n")] = '\0';
 
-        system("clear||cls");
-        printf("\nDados cadastrados com sucesso!");
-        getchar();
-    }
-    
+    getchar();
 
+    printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
+    fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH,stdin);
+    novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
+    sscanf(novoContato->endereco.enderecoCompleto, 
+        "%[^,], %d, %[^,], %[^,], %[^\n]",
+        novoContato->endereco.rua, 
+        &novoContato->endereco.numero, 
+        novoContato->endereco.bairro, 
+        novoContato->endereco.cidade, 
+        novoContato->endereco.estado);
+
+    system("clear||cls");
+    printf("\nDados cadastrados com sucesso!");
+    getchar();
 }
 
 void exibirMenu()
@@ -159,45 +155,62 @@ void lerArquivos(Contato * listaTelefonica, bool * listaInicializada)
     char nome[MAX_LENGTH];
     char numeroDeContato[MAX_LENGTH];
     
-
+    /* Abre o arquivo em moro de escrita */
     arquivo = fopen("../lista_telefonica.txt", "r");
+    /* Verifica se o arquivo foi encontrado*/
     if(arquivo == NULL)
     {
         printf("\nO arquivo não foi encontrado");
     }
     else
     {
+        /* Cetifica-se de que ainda não foi cadastrado nenhum contato */
         if(listaTelefonica ->proximoContato == NULL)
         {
             limparTela();
             *listaInicializada = true;
             char linha[MAX_LENGTH];
-            while(fgets(linha, sizeof(linha), arquivo) != NULL && !feof(arquivo))
+
+            /* Verifica se o arquivo está vazio */
+            if(fgets(linha, sizeof(linha), arquivo) == NULL)
             {
-                if(strstr(linha, "Nome:"))
+                limparTela();
+                printf("\nNão há contatos para carregar!");
+                printf("\n\nDigite qualquer tecla para continuar");
+                getchar();
+            }
+            else
+            {
+                /* Itera o arquivo enquanto houver uma linha escrita e não for o fim do arquivo 'feof */
+                while(fgets(linha, sizeof(linha), arquivo) != NULL && !feof(arquivo))
                 {
-                    sscanf(linha, "Nome: %[^\n]", nome);
+                    if(strstr(linha, "Nome:"))
+                    {
+                        sscanf(linha, "Nome: %[^\n]", nome);
+                    }
+                    else if(strstr(linha,"Data de nascimento:"))
+                    {
+                        sscanf(linha,"Data de nascimento: %d %d %d", &dataDeNascimento.dia, &dataDeNascimento.mes, &dataDeNascimento.ano);
+                    }
+                    else if(strstr(linha,"Endereço:"))
+                    {
+                        sscanf(linha,"Endereço: %[^\n]", endereco.enderecoCompleto);
+                        sscanf(linha,"Endereço: %[^,], %d, %[^,], %[^,], %[^\n]", endereco.rua, &endereco.numero, endereco.bairro, endereco.cidade, endereco.estado);
+                    }
+                    else if(strstr(linha,"Numero de telefone:"))
+                    {
+                        /* Quando a iteração estiver na última linha do contato ("Endereço"), iremos criá-lo dinamicamente */
+                        sscanf(linha,"Numero de telefone: %s", numeroDeContato);
+                        inserirContatosDoArquivo(listaTelefonica,nome,endereco,dataDeNascimento,numeroDeContato);
+                    }
                 }
-                else if(strstr(linha,"Data de nascimento:"))
-                {
-                    sscanf(linha,"Data de nascimento: %d %d %d", &dataDeNascimento.dia, &dataDeNascimento.mes, &dataDeNascimento.ano);
-                }
-                else if(strstr(linha,"Endereço:"))
-                {
-                    sscanf(linha,"Endereço: %[^\n]", endereco.enderecoCompleto);
-                }
-                else if(strstr(linha,"Numero de telefone:"))
-                {
-                    sscanf(linha,"Numero de telefone: %s", numeroDeContato);
-                    inserirContatosDoArquivo(listaTelefonica,nome,endereco,dataDeNascimento,numeroDeContato);
-                }
+                printf("\nContatos carregados com sucesso!");
+                printf("\n\nDigite qualquer tecla para continuar");
+                getchar();
+                limparTela();
             }
         }
     }
-    printf("\nContatos carregados com sucesso!");
-    printf("\n\nDigite qualquer tecla para continuar");
-    getchar();
-    limparTela();
     fclose(arquivo);
 }
 
@@ -253,22 +266,24 @@ void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco e
 {
     Contato * ultimoContatoDaLista = listaTelefonica;
 
+    /* Verificando se o contato atual é o último da lista */
     while(ultimoContatoDaLista->proximoContato != NULL)
     {
         ultimoContatoDaLista = ultimoContatoDaLista->proximoContato;
     }
+
+    /* Verificação apenas por precaução: se o último da lista estiver apontando para NULL, é criado um novo contato */
     if(ultimoContatoDaLista->proximoContato == NULL)
     {
-
         Contato * novoContato = (Contato *) malloc(sizeof(Contato));
         novoContato->proximoContato = NULL;
 
         strcpy(novoContato->name, nome);
-        printf("Carregando contato: %s\n", novoContato->name);
         ultimoContatoDaLista->proximoContato = novoContato;
         novoContato->endereco = endereco;
         novoContato->datadeNascimento = dataDeNascimento;
         strcpy(novoContato->numeroDeContato, numeroDeContato);
+        printf("Carregando contato: %s\n", novoContato->name);
     }
 }
 
@@ -305,10 +320,15 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
     for (i = 0; i < numContatos; i++) 
     {
         printf("Nome: %s\n", contatos[i]->name);
-        printf("Número de Contato: %s\n", contatos[i]->numeroDeContato);
-        //printf("Endereço: %s\n", contatos[i]->endereco);
-        printf("Data de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
-        printf("------------------------\n");
+        printf("Número de Contato: %s", contatos[i]->numeroDeContato);
+        printf("\nEndereço:");
+        printf("\nRua: %s", contatos[i]->endereco.rua);
+        printf("\nNúmero: %d",contatos[i]->endereco.numero);
+        printf("\nBairro: %s", contatos[i]->endereco.bairro);
+        printf("\nCidade: %s",contatos[i]->endereco.cidade);
+        printf("\nEstado: %s",contatos[i]->endereco.estado);
+        printf("\nData de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
+        printf("//----------------------------------//\n");
     }
     getchar();
 }
@@ -326,7 +346,7 @@ int contadorDeContatos(Contato *listaTelefonica)
     return totalDeContatos;
 }
 
-void exibição(Contato * listaTelefonica)
+void exibicao(Contato * listaTelefonica)
 {
     char strAux[MAX_LENGTH];
     int opcao;
@@ -344,6 +364,7 @@ void exibição(Contato * listaTelefonica)
         {
             case 1:
             {
+                limparTela();
                 exibirContatosOrdenados(listaTelefonica);
                 break;
             }

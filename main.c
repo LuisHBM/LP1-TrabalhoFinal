@@ -2,18 +2,22 @@
 
 int main(void)
 {
+    /* Função que permite o print de acentos */
     setlocale(LC_ALL, "Portuguese");
-
-    /* Topo da lista */
-    Contato listaTelefonica;
-    listaTelefonica.proximoContato = NULL;
-    strcpy(listaTelefonica.name,"ListaTelefonica");
-
     char strAux[MAX_LENGTH];
     bool listaInicializada = false;
+
+    /* Criando o topo da lista*/
+    Contato listaTelefonica;
+    listaTelefonica.proximoContato = NULL;
+    /* Dando nome para o topo da lista apenas para debug */
+    strcpy(listaTelefonica.name,"ListaTelefonica");
+
+    /* Lendo informações do arquivo e carregando contatos para a memória, caso existam.
+    Seta a variável 'listaInicializada' para true, caso pelo menos um contato foi carregado*/
     lerArquivos(&listaTelefonica, &listaInicializada);
 
-
+    /* Loopping principal do código */
     int opcao;
     do
     {
@@ -26,6 +30,7 @@ int main(void)
             /* Criar contato */
             case 1:
             {
+                /* Verifica se a lista foi inicializada */
                 listaInicializada = true;
                 criandoNovoContato(&listaTelefonica);
                 break;
@@ -76,7 +81,7 @@ int main(void)
                 }
                 else
                 {   
-                    exibição(&listaTelefonica);
+                    exibicao(&listaTelefonica);
                     break;
                 }
             }

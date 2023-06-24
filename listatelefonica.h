@@ -74,4 +74,4 @@ int contadorDeContatos(Contato * listaTelefonica);
 
 
 /* Função que exibe e controla o menu de exibição */
-void exibição(Contato * listaTelefonica);
+void exibicao(Contato * listaTelefonica);
