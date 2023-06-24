@@ -66,10 +66,11 @@ void salvarArquivos(Contato * listaTelefonica);
 /* Função que cria novos contatos a partir do arquvo */
 void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco endereco, DataDeNascimento dataDeNascimento, char * numeroDeContato);
 
-/* Função que ordena a lista em ordem alfabética */
-void ordenarLista(Contato* listaTelefonica);
+/* Função que exibe os contatos em ordem alfabética */
+void exibirContatosOrdenados(Contato* listaTelefonica);
 
-
+/* Função que conta quantos contatos há na lista */
+int contadorDeContatos(Contato * listaTelefonica);
 
 
 

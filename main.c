@@ -131,6 +131,7 @@ int main(void)
         
     }while(opcao != 0);
 
+exibirContatosOrdenados(&listaTelefonica);
 
     return 0;
 }

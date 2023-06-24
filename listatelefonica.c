@@ -269,8 +269,58 @@ void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco e
     printf("\n");
 }
 
+void exibirContatosOrdenados(Contato *listaTelefonica)
+{
+    /* Vetor de pointeiros de contatos */
+    Contato* contatos[contadorDeContatos(listaTelefonica)];
+    int numContatos = 0;
 
+    /* Vetor que percorre toda a lista, guardando suas referências no vetor */
+    Contato* contatoAtual = listaTelefonica->proximoContato;
+    while (contatoAtual != NULL) 
+    {
+        contatos[numContatos] = contatoAtual;
+        contatoAtual = contatoAtual->proximoContato;
+        numContatos++;
+    }
 
+    /* Ordena o vetor de contatos em ordem alfabética, usando o bubble sort */
+    int i, j;
+    for (i = 0; i < numContatos; i++) 
+    {
+        for (j = 0; j < numContatos - 1; j++) 
+        {
+            if (strcmp(contatos[j]->name, contatos[j + 1]->name) > 0) 
+            {
+                Contato* temp = contatos[j];
+                contatos[j] = contatos[j + 1];
+                contatos[j + 1] = temp;
+            }
+        }
+    }
+
+    for (i = 0; i < numContatos; i++) 
+    {
+        printf("Nome: %s\n", contatos[i]->name);
+        printf("Número de Contato: %s\n", contatos[i]->numeroDeContato);
+        //printf("Endereço: %s\n", contatos[i]->endereco);
+        printf("Data de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
+        printf("------------------------\n");
+    }
+}
+
+int contadorDeContatos(Contato *listaTelefonica)
+{
+    Contato * contatoAtual = listaTelefonica;
+    int totalDeContatos = 0;
+    while(contatoAtual->proximoContato != NULL)
+    {
+        totalDeContatos ++;
+        contatoAtual = contatoAtual->proximoContato;
+    }
+
+    return totalDeContatos;
+}
 
 void removerContato(char * contatoProcurado, Contato * listaTelefonica)
 {
