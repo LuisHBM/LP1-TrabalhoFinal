@@ -1,7 +1,5 @@
 #include "listatelefonica.h"
 
-
-
 int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
@@ -9,7 +7,6 @@ int main(void)
     /* Topo da lista */
     Contato listaTelefonica;
     listaTelefonica.proximoContato = NULL;
-    listaTelefonica.contatoAnterior = NULL;
     strcpy(listaTelefonica.name,"ListaTelefonica");
 
     char strAux[MAX_LENGTH];

@@ -12,7 +12,6 @@ void criandoNovoContato(Contato *listaTelefonica)
     {
         Contato * novoContato = (Contato *) malloc(sizeof(Contato));
         ultimoContatoDaLista->proximoContato = novoContato;
-        novoContato->contatoAnterior = ultimoContatoDaLista;
         novoContato->proximoContato = NULL;
 
         printf("\nDigite o nome do contato: ");
@@ -140,7 +139,6 @@ void exibirContato(Contato *contatoAtual)
     printf("\nNumero de telefone: %s", contatoAtual->numeroDeContato);
     printf("\nData de nascimento: %d/%d/%d", contatoAtual->datadeNascimento.dia,contatoAtual->datadeNascimento.mes, contatoAtual->datadeNascimento.ano);
     printf("\nEndereço: %s", contatoAtual->endereco.enderecoCompleto);
-    printf("\nContato anterior: %s", contatoAtual->contatoAnterior->name);
     getchar();
 }
 
@@ -264,7 +262,6 @@ void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco e
         printf("\nCadastrando contato: %s", novoContato->name);
 
         ultimoContatoDaLista->proximoContato = novoContato;
-        novoContato->contatoAnterior = ultimoContatoDaLista;
         novoContato->endereco = endereco;
         novoContato->datadeNascimento = dataDeNascimento;
         strcpy(novoContato->numeroDeContato, numeroDeContato);
@@ -272,24 +269,36 @@ void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco e
     printf("\n");
 }
 
+
+
+
 void removerContato(Contato *contatoAtual, Contato * listaTelefonica)
 {
-    Contato * aux = contatoAtual->proximoContato;
-    
-    if (contatoAtual->proximoContato != NULL)
+    char contatoProcurado[MAX_LENGTH];
+    strcpy(contatoProcurado, contatoAtual->name);
+
+    Contato * contato = listaTelefonica->proximoContato;
+    Contato * contatoAnterior = listaTelefonica;
+
+    while(contato != NULL)
     {
-        contatoAtual->proximoContato->contatoAnterior = contatoAtual->contatoAnterior;
-    }
-    if (contatoAtual->contatoAnterior != NULL)
-    {
-        contatoAtual->contatoAnterior->proximoContato = aux;
+        if(strcmp(contatoProcurado, contato->name) == 0)
+        {
+            contatoAnterior->proximoContato = contato->proximoContato;
+            free(contato);
+            printf("\nContato removido com sucesso");
+            return;
+
+        }
+        else
+        {
+            contatoAnterior = contato;
+            contato = contato->proximoContato;
+        }
     }
 
-    free(contatoAtual);
-    limparTela();
-    printf("\nContato removido com sucesso");
+    printf("\nContato não encontrado!");
     getchar();
-
 }
 
 Contato * procurarContato(Contato *listaTelefonica, char * nome)

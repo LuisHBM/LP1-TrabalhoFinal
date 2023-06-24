@@ -34,7 +34,6 @@ typedef struct Contato
     Endereco endereco;
     DataDeNascimento datadeNascimento;
     struct Contato * proximoContato;
-    struct Contato * contatoAnterior;
 }Contato;
 
 /* Função que insere novos contatos na lista */
@@ -67,8 +66,8 @@ void salvarArquivos(Contato * listaTelefonica);
 /* Função que cria novos contatos a partir do arquvo */
 void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco endereco, DataDeNascimento dataDeNascimento, char * numeroDeContato);
 
-int isFileEmpty(FILE* file) ;
-
+/* Função que ordena a lista em ordem alfabética */
+void ordenarLista(Contato* listaTelefonica);
 
 
 
