@@ -79,7 +79,8 @@ void modificarContato(Contato * contatoAtual)
                 printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
                 printf("\n\nDigite o novo nome: ");
                 fgets(contatoAtual->name, NOME,stdin);
-                contatoAtual->name[strcspn(contatoAtual->name, " \n")] = '\0';
+                int tamNome = strlen(contatoAtual->name);
+                contatoAtual->name[tamNome] = '\0';
                 getchar();
                 limparTela();
                 printf("\nModificação realizada com sucesso!");

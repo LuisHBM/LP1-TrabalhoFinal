@@ -43,8 +43,11 @@ int main(void)
                 if(verificarInicializacaoDaLista(listaInicializada))
                 {   
                     Contato * contatoProcurado;
-                    printf("\nDigite o nome do contato que deseja encontrar: ");
-                    scanf("%[A-Z a-z]", strAux);
+                    printf("\n--->Atenção<---");
+                    printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
+                    printf("\n\nDigite o nome do contato que deseja encontrar: ");
+                    fgets(strAux, NOME, stdin);
+                    strAux[strcspn(strAux, "\n")] = '\0';
                     getchar();
 
                     /* Procura pelo contato que o usuário deseja modificar */
