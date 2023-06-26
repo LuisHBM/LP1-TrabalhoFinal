@@ -57,6 +57,7 @@ void exibirMenu()
 void modificarContato(Contato * contatoAtual)
 {
     limparTela();
+    char strAux[MAX_LENGTH];
 
     int opcao;
     do{
@@ -78,10 +79,10 @@ void modificarContato(Contato * contatoAtual)
                 printf("\n--->Atenção<---");
                 printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
                 printf("\n\nDigite o novo nome: ");
-                fgets(contatoAtual->name, NOME,stdin);
-                int tamNome = strlen(contatoAtual->name);
-                contatoAtual->name[tamNome] = '\0';
+                fgets(strAux, NOME, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
                 getchar();
+                strcpy(contatoAtual->name,strAux);
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
                 getchar();
