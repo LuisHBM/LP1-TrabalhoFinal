@@ -25,10 +25,9 @@ void criandoNovoContato(Contato *listaTelefonica)
         printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
         scanf(" %d %d %d", &dia, &mes, &ano);
         getchar();
-        validarDataDeNascimento(dia,mes,ano);
-        if(!valido)
+        if(!validarDataDeNascimento(dia,mes,ano))
         {
-            printf("\nData informada inválida! Por farvor insira uma data que segue o formato -> DD MM AAAA");
+            printf("\nData inválida! Por farvor insira uma data que seja válida e que segue o formato -> DD MM AAAA");
         }
         else
         {
@@ -111,8 +110,27 @@ void modificarContato(Contato * contatoAtual)
 
             case 2:
             {
-                printf("\nDigite a noma data de nascimento de %s (DD MM AAAA):", contatoAtual->name);
-                scanf("%d %d %d", &contatoAtual->datadeNascimento.dia, &contatoAtual->datadeNascimento.mes, &contatoAtual->datadeNascimento.ano);
+                bool valido = false;
+                do
+                {   
+                    int dia, mes, ano;
+                    printf("\nDigite a nova data de nascimento de %s (DD MM AAAA):", contatoAtual->name);
+                    scanf(" %d %d %d", &dia, &mes, &ano);
+                    getchar();
+                    if(!validarDataDeNascimento(dia,mes,ano))
+                    {
+                        printf("\nData inválida! Por farvor insira uma data que seja válida e que segue o formato -> DD MM AAAA");
+                    }
+                    else
+                    {
+                        contatoAtual->datadeNascimento.dia = dia;
+                        contatoAtual->datadeNascimento.mes = mes;
+                        contatoAtual->datadeNascimento.ano = ano;
+                        valido = true;
+                    }
+
+                }while(!valido);
+                
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
                 getchar();
