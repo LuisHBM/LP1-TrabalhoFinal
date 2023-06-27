@@ -3,6 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #include <stdbool.h>
+#include "verificacao.h"
 
 #define NOME 40
 #define MAX_LENGTH 100

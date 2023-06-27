@@ -2,6 +2,7 @@
 
 void criandoNovoContato(Contato *listaTelefonica)
 {
+    bool valido = false;
     Contato * ultimoContatoDaLista = listaTelefonica;
     /* Certificando-se que o contato atual é o último contato da lista */
     while(ultimoContatoDaLista->proximoContato != NULL)
@@ -17,9 +18,28 @@ void criandoNovoContato(Contato *listaTelefonica)
     fgets(novoContato->name, NOME,stdin);
     novoContato->name[strcspn(novoContato->name, " \n")] = '\0';
 
-    printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
-    scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
-    getchar();
+    do
+    {
+        int dia, mes,ano;
+        valido = false;
+        printf("\nDigite a data de nascimento de %s (DD MM AAAA): ", novoContato->name);
+        scanf(" %d %d %d", &dia, &mes, &ano);
+        getchar();
+        validarDataDeNascimento(dia,mes,ano);
+        if(!valido)
+        {
+            printf("\nData informada inválida! Por farvor insira uma data que segue o formato -> DD MM AAAA");
+        }
+        else
+        {
+            novoContato->datadeNascimento.dia = dia;
+            novoContato->datadeNascimento.mes = mes;
+            novoContato->datadeNascimento.ano = ano;
+            valido = true;
+        }
+
+    }while(!valido);
+    //scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
 
     printf("\nDigite o numero de telefone de %s [(XX)XXXXX-XXXX]",novoContato->name);
     fgets(novoContato->numeroDeContato, MAX_LENGTH, stdin);
