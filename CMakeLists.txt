@@ -13,4 +13,4 @@ SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 
 
-add_executable(listaTelefonica listatelefonica.c main.c)
+add_executable(listaTelefonica verificacao.c listatelefonica.c main.c)
