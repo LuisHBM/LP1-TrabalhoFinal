@@ -9,3 +9,16 @@ bool validarDataDeNascimento(int dia, int mes, int ano)
 
     return true;
 }
+
+bool validarNumeroDeTelefone(char telefone[MAX_LENGTHNUM])
+{
+    int lenght = strlen(telefone);
+
+    for(int i = 0; i < lenght; i++){
+        if(!isdigit(telefone[i])){
+            return false;
+        }
+    }
+
+    return true;
+}
