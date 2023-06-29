@@ -173,9 +173,26 @@ void modificarContato(Contato * contatoAtual)
 
             case 4:
             {
-                printf("\nDigite o novo numero de telefone de %s [(XX)XXXXX-XXXX]: ",contatoAtual->name);
-                fgets(contatoAtual->numeroDeContato, TELEFONE, stdin);
-                contatoAtual->numeroDeContato[strcspn(contatoAtual->numeroDeContato, "\n")] = '\0';
+                bool valido;
+
+                do
+                {
+                    char telefone[TELEFONE];
+                    valido = false;
+                    printf("\nDigite o numero de telefone de %s '(DD)9XXXX-XXXX' : ",contatoAtual->name);
+                    fgets(telefone, TELEFONE + 1, stdin);
+                    telefone[strcspn(telefone, " \n")] = '\0';
+                    getchar();
+                    if(!validarTelefone(telefone, TELEFONE))
+                    {
+                        printf("\nNúmero de telefone inválido!! insira um número que seja válido e que segue o formato -> '(DD)9XXXX-XXXX'");
+                    }
+                    else
+                    {
+                        strcpy(contatoAtual->numeroDeContato, telefone);
+                        valido = true;
+                    }
+                }while(!valido);
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
                 getchar();                
