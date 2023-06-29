@@ -38,13 +38,30 @@ void criandoNovoContato(Contato *listaTelefonica)
         }
 
     }while(!valido);
-    //scanf(" %d %d %d", &novoContato->datadeNascimento.dia, &novoContato->datadeNascimento.mes, &novoContato->datadeNascimento.ano);
 
-    printf("\nDigite o numero de telefone de %s [(XX)XXXXX-XXXX]",novoContato->name);
-    fgets(novoContato->numeroDeContato, MAX_LENGTH, stdin);
-    novoContato->numeroDeContato[strcspn(novoContato->numeroDeContato, "\n")] = '\0';
+    do
+    {
+        char telefone[TELEFONE];
+        valido = false;
+        printf("\nDigite o numero de telefone de %s '(DD)9XXXX-XXXX' : ",novoContato->name);
+        fgets(telefone, TELEFONE + 1, stdin);
+        telefone[strcspn(telefone, " \n")] = '\0';
+        getchar();
+        if(!validarTelefone(telefone, TELEFONE))
+        {
+            printf("\nNúmero de telefone inválido!! insira um número que seja válido e que segue o formato -> '(DD)9XXXX-XXXX'");
+        }
+        else
+        {
+            strcpy(novoContato->numeroDeContato, telefone);
+            valido = true;
+        }
+
+
+
+
+    }while(!valido);
     
-
     printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
     fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH,stdin);
     novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
@@ -157,7 +174,7 @@ void modificarContato(Contato * contatoAtual)
             case 4:
             {
                 printf("\nDigite o novo numero de telefone de %s [(XX)XXXXX-XXXX]: ",contatoAtual->name);
-                fgets(contatoAtual->numeroDeContato, MAX_LENGTH, stdin);
+                fgets(contatoAtual->numeroDeContato, TELEFONE, stdin);
                 contatoAtual->numeroDeContato[strcspn(contatoAtual->numeroDeContato, "\n")] = '\0';
                 limparTela();
                 printf("\nModificação realizada com sucesso!");

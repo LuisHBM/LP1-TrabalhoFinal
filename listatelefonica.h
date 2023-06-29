@@ -7,6 +7,7 @@
 
 #define NOME 40
 #define MAX_LENGTH 100
+#define TELEFONE 14
 
 /* Struct que representa o endereco de um contato */
 typedef struct Endereco
@@ -31,7 +32,7 @@ typedef struct DataDeNascimento
 typedef struct Contato
 {
     char name[NOME];
-    char numeroDeContato[MAX_LENGTH];
+    char numeroDeContato[TELEFONE];
     Endereco endereco;
     DataDeNascimento datadeNascimento;
     struct Contato * proximoContato;
