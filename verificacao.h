@@ -4,11 +4,6 @@
 #include <ctype.h>
 #include <stdio.h>
 
-
-
-
-
-
 /* Arquivo destinado às funções que irão verificar as entradas do usuário */
 
 /* Função que irá retornar um boleano informando se a data inserida pelo usuário for válida */

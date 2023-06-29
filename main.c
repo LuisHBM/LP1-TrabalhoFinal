@@ -1,4 +1,7 @@
 #include "listatelefonica.h"
+#include "exibicao.h"
+#include "arquivo_io.h"
+#include "utils.h"
 
 int main(void)
 {
