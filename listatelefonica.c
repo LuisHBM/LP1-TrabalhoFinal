@@ -255,12 +255,35 @@ Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int
         {
             limparTela();
             printf("\nContato encontrado com sucesso!");
+            return contatoProcurado;
+        }
+
+        contatoProcurado = contatoProcurado->proximoContato;
+    }
+    limparTela();
+    printf("\nContato não encontrado!");
+    pausarExecucao();
+
+    return NULL;
+}
+
+Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * numeroDeTelefone)
+{
+    Contato * contatoProcurado = listaTelefonica;
+
+    while(contatoProcurado->proximoContato != NULL)
+    {
+        if(strcmp(numeroDeTelefone, contatoProcurado->numeroDeContato) == 0)
+        {
+            limparTela();
+            printf("\nContato encontrado com sucesso!");
             pausarExecucao();
             return contatoProcurado;
         }
 
         contatoProcurado = contatoProcurado->proximoContato;
     }
+
     limparTela();
     printf("\nContato não encontrado!");
     pausarExecucao();

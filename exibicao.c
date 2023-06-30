@@ -163,18 +163,65 @@ void exibirMenuDeProcura(Contato *listatelefonica)
             {
                 int diaProcurado,mesProcurado,anoProcurado;
                 Contato * contatoProcurado;
-                limparTela();
-                printf("\nInforme a data de nascimento do contato que deseja procurar DD MM AAAA: ");
-                scanf(" %d %d %d", &diaProcurado, &mesProcurado, &anoProcurado);
-                getchar();
+                bool valido;
 
-                contatoProcurado = procurarContatoPorData(listatelefonica, diaProcurado, mesProcurado, anoProcurado);
-                if(contatoProcurado != NULL)
+                do
                 {
-                    exibirContato(contatoProcurado);
-                }
+                    valido = false;
+                    limparTela();
+                    printf("\nInforme a data de nascimento do contato que deseja procurar DD MM AAAA: ");
+                    scanf(" %d %d %d", &diaProcurado, &mesProcurado, &anoProcurado);
+                    getchar();
+
+                    if(!validarDataDeNascimento(diaProcurado, mesProcurado, anoProcurado))
+                    {
+                        printf("\nData inválida! Por farvor insira uma data que seja válida e que segue o formato -> DD MM AAAA");
+                    }
+                    else
+                    {
+                        contatoProcurado = procurarContatoPorData(listatelefonica, diaProcurado, mesProcurado, anoProcurado);
+                        if(contatoProcurado != NULL)
+                        {
+                            exibirContato(contatoProcurado);
+                        }
+
+                        valido = true;
+                    }
+                }while(!valido);
 
                 break;
+            }
+            case 3:
+            {
+                char numeroDeTelefone[TELEFONE];
+                Contato * contatoProcurado;
+                bool valido;
+
+                do
+                {
+                    limparTela();
+                    printf("\nDigite o numero de telefone do contato que deseja encontrar '(DD)9XXXX-XXXX': ");
+                    fgets(numeroDeTelefone, TELEFONE + 1, stdin);
+                    numeroDeTelefone[strcspn(numeroDeTelefone, "\n")] = '\0';
+                    getchar();
+                    
+                    if(!validarTelefone(numeroDeTelefone, TELEFONE))
+                    {
+                        printf("\nNúmero de telefone inválido!! insira um número que seja válido e que segue o formato -> '(DD)9XXXX-XXXX'");
+                    }
+                    else
+                    {
+                        contatoProcurado = procurarContatoPorNumeroDeTelefone(listatelefonica, numeroDeTelefone);
+                        if(contatoProcurado != NULL)
+                        {
+                            exibirContato(contatoProcurado);
+                        }
+                        valido = true;
+                    }
+                }while(!valido);
+                
+                break;
+
             }
             case 0:
             {

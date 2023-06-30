@@ -52,4 +52,7 @@ void liberarMemoria(Contato * listaTelefonica);
 /* Função que procura por um contato através da data de nascimento */
 Contato * procurarContatoPorData(Contato * listaTelefonica, int dia, int mes, int ano);
 
+/* Função que procura um contato através de um numero de telefone */
+Contato * procurarContatoPorNumeroDeTelefone(Contato * listaTelefonica, char * numeroDeTelefone);
+
 #endif
