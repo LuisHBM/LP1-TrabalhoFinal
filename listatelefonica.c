@@ -61,18 +61,18 @@ void criandoNovoContato(Contato *listaTelefonica)
 
 
     }while(!valido);
-    
-    printf("\nDigite o endereço completo (rua, número, bairro, cidade, estado): ");
-    fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH,stdin);
-    novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
-    sscanf(novoContato->endereco.enderecoCompleto, 
-        "%[^,], %d, %[^,], %[^,], %[^\n]",
-        novoContato->endereco.rua, 
-        &novoContato->endereco.numero, 
-        novoContato->endereco.bairro, 
-        novoContato->endereco.cidade, 
-        novoContato->endereco.estado);
 
+    printf("\nDigite o endereço completo: ");
+        fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH, stdin);
+        novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
+
+        sscanf(novoContato->endereco.enderecoCompleto,
+           "%[^,], %d, %[^,], %[^,], %[^\n]",
+           novoContato->endereco.rua,
+           &novoContato->endereco.numero,
+           novoContato->endereco.bairro,
+           novoContato->endereco.cidade,
+           novoContato->endereco.estado);
     limparTela();
     printf("\nDados cadastrados com sucesso!");
     pausarExecucao();
@@ -124,7 +124,7 @@ void modificarContato(Contato * contatoAtual)
                     getchar();
                     if(!validarDataDeNascimento(dia,mes,ano))
                     {
-                        printf("\nData inválida! Por farvor insira uma data que seja válida e que segue o formato -> DD MM AAAA");
+                        printf("\nData inválida! Por favor insira uma data que seja válida e que segue o formato -> DD MM AAAA");
                     }
                     else
                     {
@@ -144,7 +144,7 @@ void modificarContato(Contato * contatoAtual)
 
             case 3:
             {
-                printf("\nDigite o novo endereço de %s :", contatoAtual->name);
+                printf("\nDigite o novo endereço de %s [Exemplo: (Silveira Martins, 8, Cabula, Salvador, Bahia)]: ", contatoAtual->name);
                 fgets(contatoAtual->endereco.enderecoCompleto, MAX_LENGTH,stdin);
                 sscanf(contatoAtual->endereco.enderecoCompleto, 
                         "%[^,], %d, %[^,], %[^,], %[^\n]",
@@ -269,11 +269,11 @@ Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int
 
 Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * numeroDeTelefone)
 {
-    Contato * contatoProcurado = listaTelefonica;
+    Contato * contatoProcurado = listaTelefonica->proximoContato;
 
-    while(contatoProcurado->proximoContato != NULL)
+    while(contatoProcurado != NULL)
     {
-        if(strcmp(numeroDeTelefone, contatoProcurado->numeroDeContato) == 0)
+        if(strcasecmp(numeroDeTelefone, contatoProcurado->numeroDeContato) == 0)
         {
             limparTela();
             printf("\nContato encontrado com sucesso!");
@@ -294,16 +294,19 @@ Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * nu
 Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao, int opcao)
 {
     Contato * contatoProcurado;
-
+    char teste[MAX_LENGTH];
     switch(opcao)
     {
         /* Procurar por rua */
         case 1:
         {
-            contatoProcurado = listaTelefonica;
-            while(contatoProcurado->proximoContato != NULL)
+            contatoProcurado = listaTelefonica->proximoContato;
+            while(contatoProcurado != NULL)
             {
-                if(strcmp(informacao, contatoProcurado->endereco.rua) == 0)
+                printf("\n%s", contatoProcurado->endereco.enderecoCompleto);
+                printf("\n%s",informacao);
+                getchar();
+                if(strcasecmp(informacao, contatoProcurado->endereco.rua) == 0)
                 {
                     limparTela();
                     printf("\nContato encontrado com sucesso!");
@@ -313,14 +316,15 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
 
                 contatoProcurado = contatoProcurado->proximoContato;
             }
+            break;
         }
         /* Procurar por bairro */
         case 3:
         {
-            contatoProcurado = listaTelefonica;
-            while(contatoProcurado->proximoContato != NULL)
+            contatoProcurado = listaTelefonica->proximoContato;
+            while(contatoProcurado != NULL)
             {
-                if(strcmp(informacao, contatoProcurado->endereco.bairro) == 0)
+                if(strcasecmp(informacao, contatoProcurado->endereco.bairro) == 0)
                 {
                     limparTela();
                     printf("\nContato encontrado com sucesso!");
@@ -330,15 +334,16 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
 
                 contatoProcurado = contatoProcurado->proximoContato;
             }
+            break;
         }
 
         /* Procurar por cidade */
         case 4:
         {
-            contatoProcurado = listaTelefonica;
-            while(contatoProcurado->proximoContato != NULL)
+            contatoProcurado = listaTelefonica->proximoContato;
+            while(contatoProcurado != NULL)
             {
-                if(strcmp(informacao, contatoProcurado->endereco.cidade) == 0)
+                if(strcasecmp(informacao, contatoProcurado->endereco.cidade) == 0)
                 {
                     limparTela();
                     printf("\nContato encontrado com sucesso!");
@@ -348,15 +353,16 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
 
                 contatoProcurado = contatoProcurado->proximoContato;
             }
+            break;
         }
 
         /* Procurar por estado */
         case 5:
         {
-            contatoProcurado = listaTelefonica;
-            while(contatoProcurado->proximoContato != NULL)
+            contatoProcurado = listaTelefonica->proximoContato;
+            while(contatoProcurado != NULL)
             {
-                if(strcmp(informacao, contatoProcurado->endereco.estado) == 0)
+                if(strcasecmp(informacao, contatoProcurado->endereco.estado) == 0)
                 {
                     limparTela();
                     printf("\nContato encontrado com sucesso!");
@@ -366,6 +372,12 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
 
                 contatoProcurado = contatoProcurado->proximoContato;
             }
+            break;
+        }
+        default:
+        {
+            limparTela();
+            printf("\nOpção inválida");
         }
     }
 
@@ -378,8 +390,8 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
 
 Contato * procurarPorNumeroDeEndereco(Contato *listaTelefonica, int numero)
 {
-    Contato * contatoProcurado = listaTelefonica;
-    while(contatoProcurado->proximoContato != NULL)
+    Contato * contatoProcurado = listaTelefonica->proximoContato;
+    while(contatoProcurado != NULL)
     {
         if(numero == contatoProcurado->endereco.numero)
         {

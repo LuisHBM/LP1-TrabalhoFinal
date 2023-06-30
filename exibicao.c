@@ -39,7 +39,6 @@ void exibicao(Contato * listaTelefonica)
             {
                 limparTela();
                 printf("\nOpção inválida!");
-                printf("\n");
                 pausarExecucao();
                 break;
             }
