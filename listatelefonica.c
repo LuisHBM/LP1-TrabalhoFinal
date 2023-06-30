@@ -73,9 +73,9 @@ void criandoNovoContato(Contato *listaTelefonica)
         novoContato->endereco.cidade, 
         novoContato->endereco.estado);
 
-    system("clear||cls");
+    limparTela();
     printf("\nDados cadastrados com sucesso!");
-    getchar();
+    pausarExecucao();
 }
 
 void modificarContato(Contato * contatoAtual)
@@ -109,7 +109,7 @@ void modificarContato(Contato * contatoAtual)
                 strcpy(contatoAtual->name,strAux);
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
-                getchar();
+                pausarExecucao();
                 break;
             }
 
@@ -138,7 +138,7 @@ void modificarContato(Contato * contatoAtual)
                 
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
-                getchar();
+                pausarExecucao();
                 break;
             }
 
@@ -155,7 +155,7 @@ void modificarContato(Contato * contatoAtual)
                         contatoAtual->endereco.estado);
                 limparTela();
                 printf("Modificação realizada com sucesso!");     
-                getchar();
+                pausarExecucao();
                 break;
             }
 
@@ -183,7 +183,7 @@ void modificarContato(Contato * contatoAtual)
                 }while(!valido);
                 limparTela();
                 printf("\nModificação realizada com sucesso!");
-                getchar();                
+                pausarExecucao();     
                 break;
             }
 
@@ -220,7 +220,7 @@ bool verificarInicializacaoDaLista(bool listaInicializada)
         limparTela();
         printf("\nAinda não há contatos na lista telefônica!");
         printf("\nAcesse a opção número '1' para cadastrar novos contatos");
-        getchar(); 
+        pausarExecucao();
 
         return false;
     }
@@ -267,7 +267,7 @@ void removerContato(char * contatoProcurado, Contato * listaTelefonica)
     }
 
     printf("\nContato não encontrado!");
-    getchar();
+    pausarExecucao();
 }
 
 Contato * procurarContato(Contato *listaTelefonica, char * nome)
@@ -288,7 +288,7 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
 
     limparTela();
     printf("\nContato não encontrado");
-    getchar();
+    pausarExecucao();
 
     return NULL;
 

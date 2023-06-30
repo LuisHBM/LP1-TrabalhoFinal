@@ -52,7 +52,8 @@ void exibicao(Contato * listaTelefonica)
             {
                 limparTela();
                 printf("\nOpção inválida!");
-                getchar();
+                printf("\n");
+                pausarExecucao();
                 break;
             }
         }
@@ -85,8 +86,7 @@ void exibirContato(Contato *contatoAtual)
     printf("\nBairro: %s", contatoAtual->endereco.bairro);
     printf("\nCidade: %s",contatoAtual->endereco.cidade);
     printf("\nEstado: %s",contatoAtual->endereco.estado);
-    printf("\n\nDigite qualquer tecla para continuar");
-    getchar();
+    pausarExecucao();
 }
 
 void exibirContatosOrdenados(Contato *listaTelefonica)
@@ -133,6 +133,5 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         printf("\nData de Nascimento: %d/%d/%d\n", contatos[i]->datadeNascimento.dia, contatos[i]->datadeNascimento.mes, contatos[i]->datadeNascimento.ano);
         printf("//----------------------------------//\n");
     }
-    printf("\n\nDigite qualquer tecla para continuar");
-    getchar();
+    pausarExecucao();
 }

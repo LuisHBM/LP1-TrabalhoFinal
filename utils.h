@@ -7,4 +7,7 @@
 /* Função que limpa o terminal */
 void limparTela();
 
+/* Função que pausa a execução do programa */
+void pausarExecucao();
+
 #endif

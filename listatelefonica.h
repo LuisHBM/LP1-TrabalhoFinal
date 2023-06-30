@@ -9,6 +9,7 @@
 #include "verificacao.h"
 #include "endereco.h"
 #include "datadenascimento.h"
+#include "utils.h"
 
 #define NOME 40
 #define MAX_LENGTH 100

@@ -7,6 +7,7 @@
 #include <locale.h>
 #include <stdbool.h>
 #include "listatelefonica.h"
+#include "utils.h"
 /* Arquivo destinado para funções de exibição */
 
 /* Função que exibe e controla o menu de exibição */

@@ -29,8 +29,7 @@ void lerArquivos(Contato * listaTelefonica, bool * listaInicializada)
             {
                 limparTela();
                 printf("\nNão há contatos para carregar!");
-                printf("\n\nDigite qualquer tecla para continuar");
-                getchar();
+                pausarExecucao();
             }
             else
             {
@@ -58,13 +57,12 @@ void lerArquivos(Contato * listaTelefonica, bool * listaInicializada)
                     }
                 }
                 printf("\nContatos carregados com sucesso!");
-                printf("\n\nDigite qualquer tecla para continuar");
-                getchar();
+                pausarExecucao();
                 limparTela();
             }
         }
-    }
     fclose(arquivo);
+    }
 }
 
 void salvarArquivos(Contato* listaTelefonica) {
