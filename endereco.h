@@ -14,6 +14,7 @@ typedef struct Endereco
     char bairro[MAX_LENGTH];
     char cidade[MAX_LENGTH];
     char estado[MAX_LENGTH];
+    
 }Endereco;
 
 #endif

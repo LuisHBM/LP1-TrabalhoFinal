@@ -28,20 +28,7 @@ void exibicao(Contato * listaTelefonica)
             /* Exibe as informações de um contato em específico */
             case 2:
             {
-                limparTela();
-                Contato * contatoProcurado;
-                printf("\nDigite o nome do contato que deseja encontrar: ");
-                fgets(strAux, MAX_LENGTH, stdin);
-                strAux[strcspn(strAux, "\n")] = '\0';
-            
-                /* Procura pelo contato, caso exista suas informações serão exibidas*/
-                contatoProcurado = procurarContato(listaTelefonica,strAux);
-                if(contatoProcurado != NULL)
-                {
-                    limparTela();
-                    exibirContato(contatoProcurado);
-                }
-                break;
+                exibirMenuDeProcura(listaTelefonica);
             }
             case 0:
             {
@@ -61,7 +48,7 @@ void exibicao(Contato * listaTelefonica)
     
 }
 
-void exibirMenu()
+void exibirMenuPrincipal()
 {
     printf("\nSeja bem-vindo(a)!");
     printf("\nO que deseja fazer?");
@@ -135,3 +122,69 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
     }
     pausarExecucao();
 }
+
+void exibirMenuDeProcura(Contato *listatelefonica)
+{
+    int opcao;
+    do
+    {
+        limparTela();
+        printf("\nDeseja procurar o contato através de qual informação?");
+        printf("\n1.Nome");
+        printf("\n2.Data de nascimento");
+        printf("\n3.Número de telefone");
+        printf("\n4.Endereço");
+        printf("\n0.Sair");
+        printf("\n\nDigite sua opção: ");
+        scanf("%d", &opcao);
+        getchar();
+
+        switch(opcao)
+        {
+            case 1:
+            {
+                char strAux[NOME];
+
+                limparTela();
+                Contato * contatoProcurado;
+                printf("\nDigite o nome do contato que deseja encontrar: ");
+                fgets(strAux, NOME, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
+
+                contatoProcurado = procurarContato(listatelefonica,strAux);
+                if(contatoProcurado != NULL)
+                {
+                    limparTela();
+                    exibirContato(contatoProcurado);
+                }
+                break;
+            }
+            case 2:
+            {
+                int diaProcurado,mesProcurado,anoProcurado;
+                Contato * contatoProcurado;
+                limparTela();
+                printf("\nInforme a data de nascimento do contato que deseja procurar DD MM AAAA: ");
+                scanf(" %d %d %d", &diaProcurado, &mesProcurado, &anoProcurado);
+                getchar();
+
+                contatoProcurado = procurarContatoPorData(listatelefonica, diaProcurado, mesProcurado, anoProcurado);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 0:
+            {
+                break;
+            }
+            default:
+            {
+                printf("\nOpção inválida!");
+            }
+        }
+    }while(opcao != 0);
+}
+

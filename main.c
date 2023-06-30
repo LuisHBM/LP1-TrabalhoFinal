@@ -25,7 +25,7 @@ int main(void)
     do
     {
         limparTela();
-        exibirMenu();
+        exibirMenuPrincipal();
         scanf("%d", &opcao);
         getchar();
         switch(opcao)

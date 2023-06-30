@@ -25,6 +25,7 @@ typedef struct Contato
     Endereco endereco;
     DataDeNascimento datadeNascimento;
     struct Contato * proximoContato;
+    
 }Contato;
 
 /* Função que insere novos contatos na lista */
@@ -47,5 +48,8 @@ bool verificarInicializacaoDaLista(bool listaInicializada);
 
 /* Função que desaloca a memória alocada ao fim do programa*/
 void liberarMemoria(Contato * listaTelefonica);
+
+/* Função que procura por um contato através da data de nascimento */
+Contato * procurarContatoPorData(Contato * listaTelefonica, int dia, int mes, int ano);
 
 #endif

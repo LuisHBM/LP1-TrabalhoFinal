@@ -241,6 +241,32 @@ void liberarMemoria(Contato *listaTelefonica)
     }
 }
 
+Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int ano)
+{
+    Contato * contatoProcurado = listaTelefonica;
+    DataDeNascimento dataDoContatoAtual;
+    while(contatoProcurado->proximoContato != NULL)
+    {
+        dataDoContatoAtual.dia = contatoProcurado->datadeNascimento.dia;
+        dataDoContatoAtual.mes = contatoProcurado->datadeNascimento.mes;
+        dataDoContatoAtual.ano = contatoProcurado->datadeNascimento.ano;
+
+        if(dia == dataDoContatoAtual.dia && mes == dataDoContatoAtual.mes && ano == dataDoContatoAtual.ano)
+        {
+            limparTela();
+            printf("\nContato encontrado com sucesso!");
+            pausarExecucao();
+            return contatoProcurado;
+        }
+
+        contatoProcurado = contatoProcurado->proximoContato;
+    }
+    limparTela();
+    printf("\nContato não encontrado!");
+    pausarExecucao();
+
+    return NULL;
+}
 
 void removerContato(char * contatoProcurado, Contato * listaTelefonica)
 {
