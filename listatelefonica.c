@@ -291,6 +291,114 @@ Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * nu
     return NULL;
 }
 
+Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao, int opcao)
+{
+    Contato * contatoProcurado;
+
+    switch(opcao)
+    {
+        /* Procurar por rua */
+        case 1:
+        {
+            contatoProcurado = listaTelefonica;
+            while(contatoProcurado->proximoContato != NULL)
+            {
+                if(strcmp(informacao, contatoProcurado->endereco.rua) == 0)
+                {
+                    limparTela();
+                    printf("\nContato encontrado com sucesso!");
+                    pausarExecucao();
+                    return contatoProcurado;
+                }
+
+                contatoProcurado = contatoProcurado->proximoContato;
+            }
+        }
+        /* Procurar por bairro */
+        case 3:
+        {
+            contatoProcurado = listaTelefonica;
+            while(contatoProcurado->proximoContato != NULL)
+            {
+                if(strcmp(informacao, contatoProcurado->endereco.bairro) == 0)
+                {
+                    limparTela();
+                    printf("\nContato encontrado com sucesso!");
+                    pausarExecucao();
+                    return contatoProcurado;
+                }
+
+                contatoProcurado = contatoProcurado->proximoContato;
+            }
+        }
+
+        /* Procurar por cidade */
+        case 4:
+        {
+            contatoProcurado = listaTelefonica;
+            while(contatoProcurado->proximoContato != NULL)
+            {
+                if(strcmp(informacao, contatoProcurado->endereco.cidade) == 0)
+                {
+                    limparTela();
+                    printf("\nContato encontrado com sucesso!");
+                    pausarExecucao();
+                    return contatoProcurado;
+                }
+
+                contatoProcurado = contatoProcurado->proximoContato;
+            }
+        }
+
+        /* Procurar por estado */
+        case 5:
+        {
+            contatoProcurado = listaTelefonica;
+            while(contatoProcurado->proximoContato != NULL)
+            {
+                if(strcmp(informacao, contatoProcurado->endereco.estado) == 0)
+                {
+                    limparTela();
+                    printf("\nContato encontrado com sucesso!");
+                    pausarExecucao();
+                    return contatoProcurado;
+                }
+
+                contatoProcurado = contatoProcurado->proximoContato;
+            }
+        }
+    }
+
+    limparTela();
+    printf("\nContato não encontrado!");
+    pausarExecucao();
+
+    return NULL;
+}
+
+Contato * procurarPorNumeroDeEndereco(Contato *listaTelefonica, int numero)
+{
+    Contato * contatoProcurado = listaTelefonica;
+    while(contatoProcurado->proximoContato != NULL)
+    {
+        if(numero == contatoProcurado->endereco.numero)
+        {
+            limparTela();
+            printf("\nContato encontrado com sucesso!");
+            pausarExecucao();
+            return contatoProcurado;
+        }
+
+        contatoProcurado = contatoProcurado->proximoContato;
+    }
+
+    limparTela();
+    printf("\nContato não encontrado!");
+    pausarExecucao();
+
+    return NULL;
+}
+
 void removerContato(char * contatoProcurado, Contato * listaTelefonica)
 {
     Contato * contato = listaTelefonica->proximoContato;

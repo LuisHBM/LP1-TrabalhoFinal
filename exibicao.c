@@ -221,7 +221,10 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                 }while(!valido);
                 
                 break;
-
+            case 4:
+            {
+                exibirOpcoesDeEndereco(listatelefonica);
+            }
             }
             case 0:
             {
@@ -235,3 +238,108 @@ void exibirMenuDeProcura(Contato *listatelefonica)
     }while(opcao != 0);
 }
 
+void exibirOpcoesDeEndereco(Contato *listaTelefonica)
+{
+    int opcao;
+    Contato * contatoProcurado;
+    char strAux[MAX_LENGTH];
+
+    do
+    {
+        limparTela();
+        printf("\nPor qual informação de endereço você deseja procurar o contato?");
+        printf("\n1.Rua");
+        printf("\n2.Numero");
+        printf("\n3.Bairro");
+        printf("\n4.Cidade");
+        printf("\n5.Estado");
+        printf("\n0.Sair");
+        printf("\n\nDigite sua opção: ");
+        scanf("%d", &opcao);
+        getchar();
+        switch(opcao)
+        {
+
+            case 1:
+            {
+                printf("\nDigite o nome da rua: ");
+                fgets(strAux, MAX_LENGTH, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
+
+                contatoProcurado = procurarContatoPorEndereco(listaTelefonica, strAux, opcao);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 2:
+            {
+                int numeroProcurado;
+                printf("\nDigite o numero do endereço: ");
+                scanf("%d", &numeroProcurado);
+                getchar();
+
+                contatoProcurado = procurarPorNumeroDeEndereco(listaTelefonica, numeroProcurado);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 3:
+            {
+                printf("\nDigite o nome do bairro: ");
+                fgets(strAux, MAX_LENGTH, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
+
+                contatoProcurado = procurarContatoPorEndereco(listaTelefonica, strAux, opcao);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 4:
+            {
+                printf("\nDigite o nome da cidade: ");
+                fgets(strAux, MAX_LENGTH, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
+
+                contatoProcurado = procurarContatoPorEndereco(listaTelefonica, strAux, opcao);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 5:
+            {
+                printf("\nDigite o nome do estado: ");
+                fgets(strAux, MAX_LENGTH, stdin);
+                strAux[strcspn(strAux, "\n")] = '\0';
+
+                contatoProcurado = procurarContatoPorEndereco(listaTelefonica, strAux, opcao);
+                if(contatoProcurado != NULL)
+                {
+                    exibirContato(contatoProcurado);
+                }
+
+                break;
+            }
+            case 0:
+            {
+                break;
+            }
+            default:
+            {
+                printf("\nOpção inválida");
+            }
+        }
+
+    }while(opcao != 0);
+}

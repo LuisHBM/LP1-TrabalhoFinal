@@ -55,4 +55,10 @@ Contato * procurarContatoPorData(Contato * listaTelefonica, int dia, int mes, in
 /* Função que procura um contato através de um numero de telefone */
 Contato * procurarContatoPorNumeroDeTelefone(Contato * listaTelefonica, char * numeroDeTelefone);
 
+/* Função que procura um contato através do nome da rua, bairro, cidade ou estado */
+Contato * procurarContatoPorEndereco(Contato * listaTelefonica, char * informacao, int opcao);
+
+/* Função que procura um contato através do número do endereço */
+Contato * procurarPorNumeroDeEndereco(Contato * listaTelefonica, int numero);
+
 #endif
