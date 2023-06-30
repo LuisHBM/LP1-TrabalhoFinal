@@ -97,7 +97,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
     {
         for (j = 0; j < numContatos - 1; j++) 
         {
-            if (strcmp(contatos[j]->name, contatos[j + 1]->name) > 0) 
+            if (strcasecmp(contatos[j]->name, contatos[j + 1]->name) > 0) 
             {
                 Contato* temp = contatos[j];
                 contatos[j] = contatos[j + 1];
