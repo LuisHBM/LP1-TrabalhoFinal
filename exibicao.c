@@ -202,7 +202,7 @@ void exibirMenuDeProcura(Contato *listatelefonica)
             {
                 char numeroDeTelefone[TELEFONE];
                 Contato * contatoProcurado;
-                bool valido;
+                bool valido = false;
 
                 /* Valido o numero de telefone antes de utilizá-lo na busca */
                 do

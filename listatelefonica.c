@@ -61,12 +61,10 @@ void criandoNovoContato(Contato *listaTelefonica)
             valido = true;
         }
 
-
-
-
     }while(!valido);
 
-    printf("\nDigite o endereço completo: ");
+        printf("\nO endereço deve ser separado por vírgulas. Exemplo: Silveira Martins, 8, Cabula, Salvador, Bahia");
+        printf("\nDigite o endereço completo: ");
         fgets(novoContato->endereco.enderecoCompleto, MAX_LENGTH, stdin);
         novoContato->endereco.enderecoCompleto[strcspn(novoContato->endereco.enderecoCompleto, "\n")] = '\0';
 
@@ -147,7 +145,8 @@ void modificarContato(Contato * contatoAtual)
 
             case 3:
             {
-                printf("\nDigite o novo endereço de %s [Exemplo: (Silveira Martins, 8, Cabula, Salvador, Bahia)]: ", contatoAtual->name);
+                printf("\nO novo endereço deve ser separado por vírgulas. Exemplo: Silveira Martins, 8, Cabula, Salvador, Bahia");
+                printf("\nDigite o novo endereço de %s: ", contatoAtual->name);
                 fgets(contatoAtual->endereco.enderecoCompleto, MAX_LENGTH,stdin);
                 sscanf(contatoAtual->endereco.enderecoCompleto, 
                         "%[^,], %d, %[^,], %[^,], %[^\n]",
@@ -246,13 +245,17 @@ void liberarMemoria(Contato *listaTelefonica)
 
 Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int ano)
 {
-    Contato * contatoProcurado = listaTelefonica;
+    Contato * contatoProcurado = listaTelefonica->proximoContato;
     DataDeNascimento dataDoContatoAtual;
-    while(contatoProcurado->proximoContato != NULL)
+    printf("\n %d %d %d", dia, mes, ano);
+    while(contatoProcurado != NULL)
     {
         dataDoContatoAtual.dia = contatoProcurado->datadeNascimento.dia;
+        printf("\n%d", dataDoContatoAtual.dia);
         dataDoContatoAtual.mes = contatoProcurado->datadeNascimento.mes;
+        printf("\n%d", dataDoContatoAtual.mes);
         dataDoContatoAtual.ano = contatoProcurado->datadeNascimento.ano;
+        printf("\n%d", dataDoContatoAtual.ano);
 
         if(dia == dataDoContatoAtual.dia && mes == dataDoContatoAtual.mes && ano == dataDoContatoAtual.ano)
         {
@@ -306,9 +309,6 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
             contatoProcurado = listaTelefonica->proximoContato;
             while(contatoProcurado != NULL)
             {
-                printf("\n%s", contatoProcurado->endereco.enderecoCompleto);
-                printf("\n%s",informacao);
-                getchar();
                 if(strcasecmp(informacao, contatoProcurado->endereco.rua) == 0)
                 {
                     limparTela();
