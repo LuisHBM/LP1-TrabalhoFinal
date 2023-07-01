@@ -34,7 +34,7 @@ void criandoNovoContato(Contato * listaTelefonica);
 /* Função que seta os atributos de um contato passado no parâmetro */
 void modificarContato(Contato * contatoAtual);
 
-/* Função que procura o contato na lista pelo nome e me retorna um ponteiro para esse contato*/
+/* Procura um contato através do nome e retorna sua referência*/
 Contato * procurarContato(Contato * listaTelefonica, char * nome);
 
 /* Função que remove um contato */
@@ -49,16 +49,22 @@ bool verificarInicializacaoDaLista(bool listaInicializada);
 /* Função que desaloca a memória alocada ao fim do programa*/
 void liberarMemoria(Contato * listaTelefonica);
 
-/* Função que procura um contato através do nome da rua, bairro, cidade ou estado */
+/* Verifica se a lista está vazia, se sim printa que está vazia, se não, não faz nada*/
+void verificarListaVazia(Contato ** listaDePonteiros, int tam);
+
+/* Função que procura contatos através do nome da rua, bairro, cidade ou estado */
 void procurarContatosPorEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao);
 
-/* Função que procura por um contato através da data de nascimento */
-Contato * procurarContatoPorData(Contato * listaTelefonica, int dia, int mes, int ano);
+/* Função que procura contatos através da data de nascimento */
+void procurarContatosPorData(Contato * listaTelefonica, Contato **ponteirosDeContato, int dia, int mes, int ano);
 
-/* Função que procura um contato através de um numero de telefone */
-Contato * procurarContatoPorNumeroDeTelefone(Contato * listaTelefonica, char * numeroDeTelefone);
+/* Função que procura contatos através de um numero de telefone */
+void procurarContatosPorNumeroDeTelefone(Contato * listaTelefonica, Contato **ponteirosDeContato, char * numeroDeTelefone);
 
-/* Função que procura um contato através do número do endereço */
-Contato * procurarPorNumeroDeEndereco(Contato * listaTelefonica, int numero);
+/* Função que procura contatos através do número do endereço */
+void procurarPorNumeroDeEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, int numero);
+
+/* Função que procura contatos na lista pelo nome e me retorna um ponteiro para esse contato*/
+void procurarContatosPorNome(Contato * listaTelefonica, Contato **ponteirosDeContato, char * nome);
 
 #endif

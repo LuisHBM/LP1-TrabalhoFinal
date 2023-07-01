@@ -202,6 +202,30 @@ void modificarContato(Contato * contatoAtual)
     }while(opcao != 0);
 }
 
+Contato * procurarContato(Contato *listaTelefonica, char * nome)
+{
+    Contato * contatoAtual = listaTelefonica;
+    bool contatoEncontrado = false;
+    
+    while(contatoAtual != NULL)
+    {
+        if(strcasecmp(contatoAtual->name,nome) == 0)
+        {   
+            printf("\nContato encontrado com sucesso!");
+            return contatoAtual;
+        }
+
+        contatoAtual = contatoAtual->proximoContato;
+    }
+
+    limparTela();
+    printf("\nContato não encontrado");
+    pausarExecucao();
+
+    return NULL;
+
+}
+
 int contadorDeContatos(Contato *listaTelefonica)
 {
     Contato * contatoAtual = listaTelefonica;
@@ -243,11 +267,33 @@ void liberarMemoria(Contato *listaTelefonica)
     }
 }
 
-Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int ano)
+void verificarListaVazia(Contato ** listaDePonteiros, int tam)
 {
+    bool vazio = true;
+
+    for (int i = 0; i < tam; i++)
+    {
+        if (listaDePonteiros[i] != NULL)
+        {
+            vazio = false;
+        }
+    
+    }
+
+    if (vazio)
+    {
+        limparTela();
+        printf("\nContato não encontrado!");
+        pausarExecucao();
+    }
+}
+
+void procurarContatosPorData(Contato *listaTelefonica, Contato ** ponteirosDeContato, int dia, int mes, int ano)
+{
+    int contador;
     Contato * contatoProcurado = listaTelefonica->proximoContato;
     DataDeNascimento dataDoContatoAtual;
-    printf("\n %d %d %d", dia, mes, ano);
+
     while(contatoProcurado != NULL)
     {
         dataDoContatoAtual.dia = contatoProcurado->datadeNascimento.dia;
@@ -259,61 +305,47 @@ Contato * procurarContatoPorData(Contato *listaTelefonica, int dia, int mes, int
 
         if(dia == dataDoContatoAtual.dia && mes == dataDoContatoAtual.mes && ano == dataDoContatoAtual.ano)
         {
-            limparTela();
-            printf("\nContato encontrado com sucesso!");
-            return contatoProcurado;
+            ponteirosDeContato[contador] = contatoProcurado;
         }
 
         contatoProcurado = contatoProcurado->proximoContato;
+        contador++;
     }
-    limparTela();
-    printf("\nContato não encontrado!");
-    pausarExecucao();
-
-    return NULL;
+    
+    verificarListaVazia(ponteirosDeContato, contadorDeContatos(listaTelefonica));
 }
 
-Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * numeroDeTelefone)
+void procurarContatosPorNumeroDeTelefone(Contato *listaTelefonica, Contato **ponteirosDeContato, char * numeroDeTelefone)
 {
+    int contador = 0;
     Contato * contatoProcurado = listaTelefonica->proximoContato;
 
     while(contatoProcurado != NULL)
     {
         if(strcasecmp(numeroDeTelefone, contatoProcurado->numeroDeContato) == 0)
         {
-            limparTela();
-            printf("\nContato encontrado com sucesso!");
-            pausarExecucao();
-            return contatoProcurado;
+            ponteirosDeContato[contador] = contatoProcurado;
         }
 
         contatoProcurado = contatoProcurado->proximoContato;
+        contador++;
     }
 
-    limparTela();
-    printf("\nContato não encontrado!");
-    pausarExecucao();
-
-    return NULL;
+    verificarListaVazia(ponteirosDeContato, contadorDeContatos(listaTelefonica));
 }
 
 void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao)
 {
+    int contador = 0;
     Contato * contatoProcurado;
-    char teste[MAX_LENGTH];
 
-    int qntDeContatos = contadorDeContatos(listaTelefonica), contador = 0;
-    for (int i = 0; i < qntDeContatos; i++)
-    {
-        ponteirosDeContato[i] = NULL;
-    }
+    contatoProcurado = listaTelefonica->proximoContato;
 
     switch(opcao)
     {
         /* Procurar por rua */
         case 1:
         {
-            contatoProcurado = listaTelefonica->proximoContato;
             while(contatoProcurado != NULL)
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.rua) == 0)
@@ -329,7 +361,6 @@ void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDe
         /* Procurar por bairro */
         case 3:
         {
-            contatoProcurado = listaTelefonica->proximoContato;
             while(contatoProcurado != NULL)
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.bairro) == 0)
@@ -346,7 +377,6 @@ void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDe
         /* Procurar por cidade */
         case 4:
         {
-            contatoProcurado = listaTelefonica->proximoContato;
             while(contatoProcurado != NULL)
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.cidade) == 0)
@@ -363,7 +393,6 @@ void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDe
         /* Procurar por estado */
         case 5:
         {
-            contatoProcurado = listaTelefonica->proximoContato;
             while(contatoProcurado != NULL)
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.estado) == 0)
@@ -383,46 +412,27 @@ void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDe
         }
     }
 
-    int vazio = 0;
-    for (int i = 0; i < qntDeContatos; i++)
-    {
-        if (ponteirosDeContato[i] != NULL)
-        {
-            vazio = 1;
-        }
-        
-    }
-
-    if (vazio == 0)
-    {
-        printf("Nenhum contato encontrado\n");
-        getchar();
-    }
-    
-
+    verificarListaVazia(ponteirosDeContato, contadorDeContatos(listaTelefonica));
 }
 
-Contato * procurarPorNumeroDeEndereco(Contato *listaTelefonica, int numero)
+void procurarPorNumeroDeEndereco(Contato *listaTelefonica, Contato **ponteirosDeContato, int numero)
 {
+    
+    int contador = 0;
     Contato * contatoProcurado = listaTelefonica->proximoContato;
+
     while(contatoProcurado != NULL)
     {
         if(numero == contatoProcurado->endereco.numero)
         {
-            limparTela();
-            printf("\nContato encontrado com sucesso!");
-            pausarExecucao();
-            return contatoProcurado;
+            ponteirosDeContato[contador] = contatoProcurado;
         }
 
         contatoProcurado = contatoProcurado->proximoContato;
+        contador++;
     }
-
-    limparTela();
-    printf("\nContato não encontrado!");
-    pausarExecucao();
-
-    return NULL;
+    
+    verificarListaVazia(ponteirosDeContato, contadorDeContatos(listaTelefonica));
 }
 
 void removerContato(char * contatoProcurado, Contato * listaTelefonica)
@@ -453,26 +463,21 @@ void removerContato(char * contatoProcurado, Contato * listaTelefonica)
     pausarExecucao();
 }
 
-Contato * procurarContato(Contato *listaTelefonica, char * nome)
+void procurarContatosPorNome(Contato *listaTelefonica, Contato ** ponteiroDeContatos, char * nome)
 {
-    Contato * contatoAtual = listaTelefonica;
-    bool contatoEncontrado = false;
-    
-    while(contatoAtual != NULL)
+    int contador = 0;
+    Contato * contatoProcurado = listaTelefonica->proximoContato;
+
+    while(contatoProcurado != NULL)
     {
-        if(strcasecmp(contatoAtual->name,nome) == 0)
+        if(strcasecmp(contatoProcurado->name,nome) == 0)
         {   
-            printf("\nContato encontrado com sucesso!");
-            return contatoAtual;
+            ponteiroDeContatos[contador] = contatoProcurado;
         }
 
-        contatoAtual = contatoAtual->proximoContato;
+        contatoProcurado = contatoProcurado->proximoContato;
+        contador++;
     }
 
-    limparTela();
-    printf("\nContato não encontrado");
-    pausarExecucao();
-
-    return NULL;
-
+    verificarListaVazia(ponteiroDeContatos, contadorDeContatos(listaTelefonica));
 }
