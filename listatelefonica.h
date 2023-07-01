@@ -49,14 +49,14 @@ bool verificarInicializacaoDaLista(bool listaInicializada);
 /* Função que desaloca a memória alocada ao fim do programa*/
 void liberarMemoria(Contato * listaTelefonica);
 
+/* Função que procura um contato através do nome da rua, bairro, cidade ou estado */
+void procurarContatosPorEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao);
+
 /* Função que procura por um contato através da data de nascimento */
 Contato * procurarContatoPorData(Contato * listaTelefonica, int dia, int mes, int ano);
 
 /* Função que procura um contato através de um numero de telefone */
 Contato * procurarContatoPorNumeroDeTelefone(Contato * listaTelefonica, char * numeroDeTelefone);
-
-/* Função que procura um contato através do nome da rua, bairro, cidade ou estado */
-Contato * procurarContatoPorEndereco(Contato * listaTelefonica, char * informacao, int opcao);
 
 /* Função que procura um contato através do número do endereço */
 Contato * procurarPorNumeroDeEndereco(Contato * listaTelefonica, int numero);

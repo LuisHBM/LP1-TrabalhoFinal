@@ -19,6 +19,9 @@ void exibirMenuPrincipal();
 /* Função que exibe as informações de um contato */
 void exibirContato(Contato * contatoAtual);
 
+/* Função que exibe as informações de um contato em cadeia */
+void exibirContatoEmCadeia(Contato * contatoAtual);
+
 /* Função que exibe os contatos em ordem alfabética */
 void exibirContatosOrdenados(Contato* listaTelefonica);
 

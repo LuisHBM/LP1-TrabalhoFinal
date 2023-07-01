@@ -297,10 +297,17 @@ Contato * procurarContatoPorNumeroDeTelefone(Contato *listaTelefonica, char * nu
     return NULL;
 }
 
-Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao, int opcao)
+void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao)
 {
     Contato * contatoProcurado;
     char teste[MAX_LENGTH];
+
+    int qntDeContatos = contadorDeContatos(listaTelefonica), contador = 0;
+    for (int i = 0; i < qntDeContatos; i++)
+    {
+        ponteirosDeContato[i] = NULL;
+    }
+
     switch(opcao)
     {
         /* Procurar por rua */
@@ -311,13 +318,11 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.rua) == 0)
                 {
-                    limparTela();
-                    printf("\nContato encontrado com sucesso!");
-                    pausarExecucao();
-                    return contatoProcurado;
+                    ponteirosDeContato[contador] = contatoProcurado;    
                 }
 
                 contatoProcurado = contatoProcurado->proximoContato;
+                contador++;
             }
             break;
         }
@@ -329,13 +334,11 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.bairro) == 0)
                 {
-                    limparTela();
-                    printf("\nContato encontrado com sucesso!");
-                    pausarExecucao();
-                    return contatoProcurado;
+                    ponteirosDeContato[contador] = contatoProcurado;    
                 }
 
                 contatoProcurado = contatoProcurado->proximoContato;
+                contador++;
             }
             break;
         }
@@ -348,13 +351,11 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.cidade) == 0)
                 {
-                    limparTela();
-                    printf("\nContato encontrado com sucesso!");
-                    pausarExecucao();
-                    return contatoProcurado;
+                    ponteirosDeContato[contador] = contatoProcurado;    
                 }
 
                 contatoProcurado = contatoProcurado->proximoContato;
+                contador++;
             }
             break;
         }
@@ -367,13 +368,11 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
             {
                 if(strcasecmp(informacao, contatoProcurado->endereco.estado) == 0)
                 {
-                    limparTela();
-                    printf("\nContato encontrado com sucesso!");
-                    pausarExecucao();
-                    return contatoProcurado;
+                    ponteirosDeContato[contador] = contatoProcurado;    
                 }
 
                 contatoProcurado = contatoProcurado->proximoContato;
+                contador++;
             }
             break;
         }
@@ -384,11 +383,17 @@ Contato * procurarContatoPorEndereco(Contato *listaTelefonica, char * informacao
         }
     }
 
-    limparTela();
-    printf("\nContato não encontrado!");
-    pausarExecucao();
+    for (int i = 0; i < qntDeContatos; i++)
+    {
+        if (ponteirosDeContato[i] != NULL)
+        {
+            break;
+        }
+        
+        printf("Nenhum contato encontrado\n");
+        getchar();
+    }
 
-    return NULL;
 }
 
 Contato * procurarPorNumeroDeEndereco(Contato *listaTelefonica, int numero)
