@@ -383,16 +383,22 @@ void procurarContatosPorEndereco(Contato *listaTelefonica, Contato **ponteirosDe
         }
     }
 
+    int vazio = 0;
     for (int i = 0; i < qntDeContatos; i++)
     {
         if (ponteirosDeContato[i] != NULL)
         {
-            break;
+            vazio = 1;
         }
         
+    }
+
+    if (vazio == 0)
+    {
         printf("Nenhum contato encontrado\n");
         getchar();
     }
+    
 
 }
 
