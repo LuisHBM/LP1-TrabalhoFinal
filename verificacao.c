@@ -12,6 +12,8 @@ bool validarDataDeNascimento(int dia, int mes, int ano)
 
 bool validarTelefone(char *telefone, int tamanho)
 {
+    /* Meu número telefone possui 14 caracteres*/
+    tamanho = tamanho-1; 
     if(strlen(telefone) != tamanho)
     {
         return false;

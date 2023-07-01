@@ -33,7 +33,7 @@ int main(void)
             /* Criar contato */
             case 1:
             {
-                /* Verifica se a lista foi inicializada */
+                /* Verifica se a lista foi inicializada  e cria novo contato */
                 listaInicializada = true;
                 criandoNovoContato(&listaTelefonica);
                 break;
@@ -42,18 +42,17 @@ int main(void)
             /* Modificar Contato */
             case 2:
             {
-                /* Verifica se a lista foi inicializada */
+                /* Verifica se a lista foi inicializada. Caso não tenha sido, não há contatos para modificar*/
                 if(verificarInicializacaoDaLista(listaInicializada))
                 {   
                     Contato * contatoProcurado;
-                    printf("\n--->Atenção<---");
-                    printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
+                    atencao();
                     printf("\n\nDigite o nome do contato que deseja encontrar: ");
                     fgets(strAux, NOME, stdin);
                     strAux[strcspn(strAux, "\n")] = '\0';
                     getchar();
 
-                    /* Procura pelo contato que o usuário deseja modificar */
+                    /* Procura pelo nome do contato que o usuário deseja modificar */
                     contatoProcurado = procurarContato(&listaTelefonica,strAux);
                     if(contatoProcurado != NULL)
                     {
@@ -71,7 +70,7 @@ int main(void)
             /* Exibir contato */
             case 3:
             {
-                /* Verifica se a lista foi inicializada */
+                /* Verifica se a lista foi inicializada. Caso não tenha sido, não há contatos para exibir */
                 if(verificarInicializacaoDaLista(listaInicializada))
                 {
                     /* Vai para o menu de exibição */
@@ -83,7 +82,7 @@ int main(void)
             /* Remover contato */
             case 4:
             {
-                /* Verifica se a lista foi inicializada */
+                /* Verifica se a lista foi inicializada. Caso não seja, não há nenhum contato para ser removido */
                 if(verificarInicializacaoDaLista(listaInicializada))
                 {
                     printf("\nDigite o nome do contato que deseja encontrar: ");

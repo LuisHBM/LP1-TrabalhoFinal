@@ -21,3 +21,9 @@ void pausarExecucao()
         getchar();
     #endif
 }
+
+void atencao()
+{
+    printf("\n--->Atenção<---");
+    printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
+}

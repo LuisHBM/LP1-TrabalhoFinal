@@ -10,14 +10,17 @@ void criandoNovoContato(Contato *listaTelefonica)
         ultimoContatoDaLista = ultimoContatoDaLista->proximoContato;
     }
 
+    /* Alocando dinamicamente um novo contato e fazendo o contato atual apontar para o novo */
     Contato * novoContato = (Contato *) malloc(sizeof(Contato));
     ultimoContatoDaLista->proximoContato = novoContato;
     novoContato->proximoContato = NULL;
 
+    /* Solicitando os dados do novo contato para o usuário */
     printf("\nDigite o nome do contato: ");
     fgets(novoContato->name, NOME,stdin);
     novoContato->name[strcspn(novoContato->name, " \n")] = '\0';
 
+    /* Validando a entrada de data de nascimento */
     do
     {
         int dia, mes,ano;
@@ -39,15 +42,16 @@ void criandoNovoContato(Contato *listaTelefonica)
 
     }while(!valido);
 
+    /* Validando a entrada do numero de telefone */
     do
     {
         char telefone[TELEFONE];
         valido = false;
         printf("\nDigite o numero de telefone de %s '(DD)9XXXX-XXXX' : ",novoContato->name);
-        fgets(telefone, TELEFONE + 1, stdin);
+        fgets(telefone, TELEFONE, stdin);
         telefone[strcspn(telefone, " \n")] = '\0';
         getchar();
-        if(!validarTelefone(telefone, TELEFONE))
+        if(!validarTelefone(telefone, TELEFONE))  
         {
             printf("\nNúmero de telefone inválido!! insira um número que seja válido e que segue o formato -> '(DD)9XXXX-XXXX'");
         }
@@ -100,8 +104,7 @@ void modificarContato(Contato * contatoAtual)
         {
             case 1:
             {
-                printf("\n--->Atenção<---");
-                printf("\nQuando terminar de digitar o novo nome, aperte enter duas vezes para continuar");
+                atencao();
                 printf("\n\nDigite o novo nome: ");
                 fgets(strAux, NOME, stdin);
                 strAux[strcspn(strAux, "\n")] = '\0';
@@ -168,7 +171,7 @@ void modificarContato(Contato * contatoAtual)
                     char telefone[TELEFONE];
                     valido = false;
                     printf("\nDigite o numero de telefone de %s '(DD)9XXXX-XXXX' : ",contatoAtual->name);
-                    fgets(telefone, TELEFONE + 1, stdin);
+                    fgets(telefone, TELEFONE, stdin);
                     telefone[strcspn(telefone, " \n")] = '\0';
                     getchar();
                     if(!validarTelefone(telefone, TELEFONE))
@@ -419,7 +422,7 @@ void removerContato(char * contatoProcurado, Contato * listaTelefonica)
     /* Enquanto não for o fim da lista */
     while(contato != NULL)
     {   
-        if(strcmp(contatoProcurado, contato->name) == 0)
+        if(strcasecmp(contatoProcurado, contato->name) == 0)
         {
             contatoAnterior->proximoContato = contato->proximoContato;
             free(contato);
@@ -446,7 +449,7 @@ Contato * procurarContato(Contato *listaTelefonica, char * nome)
     
     while(contatoAtual != NULL)
     {
-        if(strcmp(contatoAtual->name,nome) == 0)
+        if(strcasecmp(contatoAtual->name,nome) == 0)
         {   
             printf("\nContato encontrado com sucesso!");
             return contatoAtual;

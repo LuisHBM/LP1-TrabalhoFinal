@@ -13,7 +13,7 @@
 
 #define NOME 40
 #define MAX_LENGTH 100
-#define TELEFONE 14
+#define TELEFONE 15
 
 /* Arquivo destinado à struct Contato, cujo conjunto de objetos formam a lista telefônica, e suas funções */
 

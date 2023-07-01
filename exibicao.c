@@ -32,7 +32,7 @@ void exibicao(Contato * listaTelefonica)
             }
             case 0:
             {
-                return;
+                break;
             }
 
             default:
@@ -81,7 +81,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
     Contato* contatos[contadorDeContatos(listaTelefonica)];
     int numContatos = 0;
 
-    /* Vetor que percorre toda a lista, guardando suas referências no vetor */
+    /* Vetor que percorre toda a lista telefônica e guarda suas referências */
     Contato* contatoAtual = listaTelefonica->proximoContato;
     while (contatoAtual != NULL) 
     {
@@ -90,7 +90,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         numContatos++;
     }
 
-    /* Ordena o vetor de contatos em ordem alfabética, usando o bubble sort */
+    /* Ordena o vetor de ponteiros de contatos em ordem alfabética, usando o bubble sort. */
     int i, j;
     for (i = 0; i < numContatos; i++) 
     {
@@ -105,7 +105,7 @@ void exibirContatosOrdenados(Contato *listaTelefonica)
         }
     }
 
-    /* Printa as informações do contato */ 
+    /* Printa as informações dos contatos */ 
     for (i = 0; i < numContatos; i++) 
     {
         printf("Nome: %s\n", contatos[i]->name);
@@ -140,6 +140,7 @@ void exibirMenuDeProcura(Contato *listatelefonica)
 
         switch(opcao)
         {
+            /* Procuro um contato através de um nome */
             case 1:
             {
                 char strAux[NOME];
@@ -149,7 +150,8 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                 printf("\nDigite o nome do contato que deseja encontrar: ");
                 fgets(strAux, NOME, stdin);
                 strAux[strcspn(strAux, "\n")] = '\0';
-
+                
+                /* Procuro o contato através do nome */
                 contatoProcurado = procurarContato(listatelefonica,strAux);
                 if(contatoProcurado != NULL)
                 {
@@ -158,12 +160,15 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                 }
                 break;
             }
+
+            /* Procuro um contato através de uma data de nascimento */
             case 2:
             {
                 int diaProcurado,mesProcurado,anoProcurado;
                 Contato * contatoProcurado;
                 bool valido;
 
+                /* Valido data de nascimento inserida pelo usuário antes de utilizá-la na busca */
                 do
                 {
                     valido = false;
@@ -178,6 +183,7 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                     }
                     else
                     {
+                        /* Procuro o contato através da data de nascimento */
                         contatoProcurado = procurarContatoPorData(listatelefonica, diaProcurado, mesProcurado, anoProcurado);
                         if(contatoProcurado != NULL)
                         {
@@ -190,17 +196,20 @@ void exibirMenuDeProcura(Contato *listatelefonica)
 
                 break;
             }
+
+            /* Procuro um contato através de um número de telefone */
             case 3:
             {
                 char numeroDeTelefone[TELEFONE];
                 Contato * contatoProcurado;
                 bool valido;
 
+                /* Valido o numero de telefone antes de utilizá-lo na busca */
                 do
                 {
                     limparTela();
                     printf("\nDigite o numero de telefone do contato que deseja encontrar '(DD)9XXXX-XXXX': ");
-                    fgets(numeroDeTelefone, TELEFONE + 1, stdin);
+                    fgets(numeroDeTelefone, TELEFONE, stdin);
                     numeroDeTelefone[strcspn(numeroDeTelefone, "\n")] = '\0';
                     getchar();
                     
@@ -210,6 +219,7 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                     }
                     else
                     {
+                        /* Procuro o contato através do número telefônico */
                         contatoProcurado = procurarContatoPorNumeroDeTelefone(listatelefonica, numeroDeTelefone);
                         if(contatoProcurado != NULL)
                         {
@@ -220,10 +230,13 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                 }while(!valido);
                 
                 break;
+            }
+
+            /*Busco um contato através de alguma informação de endereço (Rua, Número, Bairo, Cidade, Estado)  */
             case 4:
             {
+                /* Exibo o menu de opções de busca através de uma informação de endereço */
                 exibirOpcoesDeEndereco(listatelefonica);
-            }
             }
             case 0:
             {
@@ -258,7 +271,7 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
         getchar();
         switch(opcao)
         {
-
+            /* Procuro por um contato através do nome da rua */
             case 1:
             {
                 printf("\nDigite o nome da rua: ");
@@ -273,6 +286,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
 
                 break;
             }
+
+            /* Procuro por um contato através de um número de endereço */
             case 2:
             {
                 int numeroProcurado;
@@ -288,6 +303,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
 
                 break;
             }
+
+            /* Procuro por um contato através do nome do bairro*/
             case 3:
             {
                 printf("\nDigite o nome do bairro: ");
@@ -302,6 +319,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
 
                 break;
             }
+
+            /* Procuro por um contato através do nome da cidade */
             case 4:
             {
                 printf("\nDigite o nome da cidade: ");
@@ -316,6 +335,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
 
                 break;
             }
+
+            /* Procuro por um contato através do nome do estado */
             case 5:
             {
                 printf("\nDigite o nome do estado: ");
