@@ -467,8 +467,7 @@ void procurarContatosPorNome(Contato *listaTelefonica, Contato ** ponteiroDeCont
 
     while(contatoProcurado != NULL)
     {
-        if(strcasecmp(contatoProcurado->name,nome) == 0)
-        {   
+        if (strstr(contatoProcurado->name, nome) != NULL) {
             ponteiroDeContatos[contador] = contatoProcurado;
         }
 
