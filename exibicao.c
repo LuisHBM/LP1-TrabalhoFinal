@@ -335,7 +335,7 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
             {
                 limparTela();
 
-                Contato ** contatosEncontrados;
+                Contato * contatosEncontrados[qntDeContatos];
 
                 printf("\nDigite o nome do bairro: ");
                 fgets(strAux, MAX_LENGTH, stdin);
@@ -358,8 +358,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
             case 4:
             {
                 limparTela();
-                
-                Contato ** contatosEncontrados;
+
+                Contato * contatosEncontrados[qntDeContatos];
 
                 printf("\nDigite o nome da cidade: ");
                 fgets(strAux, MAX_LENGTH, stdin);
@@ -383,7 +383,7 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
             {
                 limparTela();
 
-                Contato ** contatosEncontrados;
+                Contato * contatosEncontrados[qntDeContatos];
 
                 printf("\nDigite o nome do estado: ");
                 fgets(strAux, MAX_LENGTH, stdin);
