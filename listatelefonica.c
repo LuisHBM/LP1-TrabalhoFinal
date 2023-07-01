@@ -297,11 +297,8 @@ void procurarContatosPorData(Contato *listaTelefonica, Contato ** ponteirosDeCon
     while(contatoProcurado != NULL)
     {
         dataDoContatoAtual.dia = contatoProcurado->datadeNascimento.dia;
-        printf("\n%d", dataDoContatoAtual.dia);
         dataDoContatoAtual.mes = contatoProcurado->datadeNascimento.mes;
-        printf("\n%d", dataDoContatoAtual.mes);
         dataDoContatoAtual.ano = contatoProcurado->datadeNascimento.ano;
-        printf("\n%d", dataDoContatoAtual.ano);
 
         if(dia == dataDoContatoAtual.dia && mes == dataDoContatoAtual.mes && ano == dataDoContatoAtual.ano)
         {
