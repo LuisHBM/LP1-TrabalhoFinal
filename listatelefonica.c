@@ -284,7 +284,6 @@ void verificarListaVazia(Contato ** listaDePonteiros, int tam)
     {
         limparTela();
         printf("\nContato não encontrado!");
-        pausarExecucao();
     }
 }
 
