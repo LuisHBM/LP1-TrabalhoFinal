@@ -6,6 +6,8 @@ void exibicao(Contato * listaTelefonica)
     int opcao;
     do
     {
+        opcao = -1;
+        
         limparTela();
         printf("\nO que você deseja fazer?");
         printf("\n1.Exibir todos os contatos cadastrados em ordem alfabética");
@@ -149,6 +151,8 @@ void exibirMenuDeProcura(Contato *listatelefonica)
     
     do
     {
+        opcao = -1;
+
         limparTela();
         printf("\nDeseja procurar o contato através de qual informação?");
         printf("\n1.Nome");
@@ -301,6 +305,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
 
     do
     {
+        opcao = -1;
+
         limparTela();
         printf("\nPor qual informação de endereço você deseja procurar o contato?");
         printf("\n1.Rua");

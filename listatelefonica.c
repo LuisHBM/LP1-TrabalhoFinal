@@ -87,16 +87,18 @@ void modificarContato(Contato * contatoAtual)
 
     int opcao;
     do{
-    printf("\nO que deseja modificar?");
-    printf("\n1.Nome ");
-    printf("\n2.Data de nascimento");
-    printf("\n3.Endereço");
-    printf("\n4.Número de contato");
-    printf("\n0.Sair");
-    printf("\n\nDigite sua opção: ");
-    scanf("%d", &opcao);
-    getchar();
-    limparTela();
+        opcao = -1;
+        
+        printf("\nO que deseja modificar?");
+        printf("\n1.Nome ");
+        printf("\n2.Data de nascimento");
+        printf("\n3.Endereço");
+        printf("\n4.Número de contato");
+        printf("\n0.Sair");
+        printf("\n\nDigite sua opção: ");
+        scanf("%d", &opcao);
+        getchar();
+        limparTela();
 
         switch(opcao)
         {

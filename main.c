@@ -24,6 +24,8 @@ int main(void)
     int opcao;
     do
     {
+        opcao = -1;
+        
         limparTela();
         exibirMenuPrincipal();
         scanf("%d", &opcao);
