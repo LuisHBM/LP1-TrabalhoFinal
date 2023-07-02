@@ -52,6 +52,9 @@ void liberarMemoria(Contato * listaTelefonica);
 /* Verifica se a lista está vazia, se sim printa que está vazia, se não, não faz nada*/
 void verificarListaVazia(Contato ** listaDePonteiros, int tam);
 
+/* Converte todos os valores da lista de ponteiros para NULL */
+void zerarLista(Contato ** listaDePonteiros, int tam);
+
 /* Função que procura contatos através do nome da rua, bairro, cidade ou estado */
 void procurarContatosPorEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao);
 

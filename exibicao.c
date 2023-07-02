@@ -281,6 +281,9 @@ void exibirMenuDeProcura(Contato *listatelefonica)
                 printf("\nOpção inválida!");
             }
         }
+
+        zerarLista(ponteirosDeContato, qntDeContatos);
+
     }while(opcao != 0);
 }
 
@@ -436,6 +439,8 @@ void exibirOpcoesDeEndereco(Contato *listaTelefonica)
                 printf("\nOpção inválida");
             }
         }
+
+        zerarLista(ponteirosDeContato, qntDeContatos);
 
     }while(opcao != 0);
 }

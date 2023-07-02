@@ -288,6 +288,14 @@ void verificarListaVazia(Contato ** listaDePonteiros, int tam)
     }
 }
 
+void zerarLista(Contato ** listaDePonteiros, int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        listaDePonteiros[i] = NULL;
+    }
+}
+
 void procurarContatosPorData(Contato *listaTelefonica, Contato ** ponteirosDeContato, int dia, int mes, int ano)
 {
     int contador;
