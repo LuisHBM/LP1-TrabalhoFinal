@@ -1,76 +1,73 @@
+#ifndef LISTATELEFONICA_H
+#define LISTATELEFONICA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 #include <stdbool.h>
+#include "verificacao.h"
+#include "endereco.h"
+#include "datadenascimento.h"
+#include "utils.h"
 
 #define NOME 40
 #define MAX_LENGTH 100
+#define TELEFONE 15
 
-/* Struct que representa o endereco de um contato */
-typedef struct Endereco
-{
-    char enderecoCompleto[MAX_LENGTH];
-    char rua[MAX_LENGTH];
-    int numero;
-    char bairro[MAX_LENGTH];
-    char cidade[MAX_LENGTH];
-    char estado[MAX_LENGTH];
-}Endereco;
-
-/* Struct que representa a data de nascimento de um contato */
-typedef struct DataDeNascimento
-{
-    int dia;
-    int mes;
-    int ano;
-}DataDeNascimento;
+/* Arquivo destinado à struct Contato, cujo conjunto de objetos formam a lista telefônica, e suas funções */
 
 /* Struct que representa um contato*/
 typedef struct Contato
 {
     char name[NOME];
-    char numeroDeContato[MAX_LENGTH];
+    char numeroDeContato[TELEFONE];
     Endereco endereco;
     DataDeNascimento datadeNascimento;
     struct Contato * proximoContato;
-    struct Contato * contatoAnterior;
+    
 }Contato;
 
 /* Função que insere novos contatos na lista */
 void criandoNovoContato(Contato * listaTelefonica);
 
-/* Função que printa o menu */
-void exibirMenu();
-
 /* Função que seta os atributos de um contato passado no parâmetro */
 void modificarContato(Contato * contatoAtual);
 
-/* Função que exibe as informações de um contato */
-void exibirContato(Contato * contatoAtual);
-
-/* Função que limpa o terminal */
-void limparTela();
-
-/* Função que procura o contato na lista pelo nome e me retorna um ponteiro para esse contato*/
+/* Procura um contato através do nome e retorna sua referência*/
 Contato * procurarContato(Contato * listaTelefonica, char * nome);
 
 /* Função que remove um contato */
-void removerContato(Contato * contatoAtual, Contato * listaTelefonica);
+void removerContato(char * contatoProcurado, Contato * listaTelefonica);
 
-/* Função que lê arquivos  */
-void lerArquivos(Contato * listaTelefonica, bool * listaInicializada);
+/* Função que conta quantos contatos há na lista */
+int contadorDeContatos(Contato * listaTelefonica);
 
-/* Função que salva informações no arquivo */
-void salvarArquivos(Contato * listaTelefonica);
+/* Função que verifica se a lista foi iniciada */
+bool verificarInicializacaoDaLista(bool listaInicializada);
 
-/* Função que cria novos contatos a partir do arquvo */
-void inserirContatosDoArquivo(Contato * listaTelefonica, char * nome, Endereco endereco, DataDeNascimento dataDeNascimento, char * numeroDeContato);
+/* Função que desaloca a memória alocada ao fim do programa*/
+void liberarMemoria(Contato * listaTelefonica);
 
-int isFileEmpty(FILE* file) ;
+/* Verifica se a lista está vazia, se sim printa que está vazia, se não, não faz nada*/
+void verificarListaVazia(Contato ** listaDePonteiros, int tam);
 
+/* Converte todos os valores da lista de ponteiros para NULL */
+void zerarLista(Contato ** listaDePonteiros, int tam);
 
+/* Função que procura contatos através do nome da rua, bairro, cidade ou estado */
+void procurarContatosPorEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, char * informacao, int opcao);
 
+/* Função que procura contatos através da data de nascimento */
+void procurarContatosPorData(Contato * listaTelefonica, Contato **ponteirosDeContato, int dia, int mes, int ano);
 
+/* Função que procura contatos através de um numero de telefone */
+void procurarContatosPorNumeroDeTelefone(Contato * listaTelefonica, Contato **ponteirosDeContato, char * numeroDeTelefone);
 
+/* Função que procura contatos através do número do endereço */
+void procurarPorNumeroDeEndereco(Contato * listaTelefonica, Contato **ponteirosDeContato, int numero);
 
+/* Função que procura contatos na lista pelo nome e me retorna um ponteiro para esse contato*/
+void procurarContatosPorNome(Contato * listaTelefonica, Contato **ponteirosDeContato, char * nome);
+
+#endif

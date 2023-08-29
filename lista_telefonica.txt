@@ -1,26 +1,31 @@
 -------->Lista telefônica<------------
-Nome: Alan
+Nome: Kalvin
+Data de nascimento: 15 11 2002
+Endereço: a,1,a,a,a
+Numero de telefone: (71)98440-8003
+
+Nome: Luis Henrique
 Data de nascimento: 23 10 2002
-Endereço: b 22 c d e
-Numero de telefone: 1232
+Endereço: a, 8, a, a, a
+Numero de telefone: (71)98883-6344
 
-Nome: Luis
-Data de nascimento: 23 10 2002
-Endereço: b 2 v c e
-Numero de telefone: 1313
+Nome: Cleiton
+Data de nascimento: 23 10 2004
+Endereço: a, 7, a, a, a
+Numero de telefone: (71)97676-7676
 
-Nome: Glenda
-Data de nascimento: 23 10 2002
-Endereço: b, 2, e, r, w
-Numero de telefone: 133231
+Nome: Kelvin
+Data de nascimento: 15 11 2002
+Endereço: a,1,a,a,a
+Numero de telefone: (71)98440-8003
 
-Nome: Pivete
-Data de nascimento: 20 20 20
-Endereço: b, 2, e, r, w
-Numero de telefone: 123123
+Nome: Ernesto
+Data de nascimento: 24 1 2002
+Endereço: Silveira Martins, 10, Cabula, Salvador, Bahia
+Numero de telefone: (71)91234-5678
 
-Nome: Luis
-Data de nascimento: 23 32 32
-Endereço: b, 22, e, c, e
-Numero de telefone: 2131
+Nome: Amanda
+Data de nascimento: 24 1 2002
+Endereço: Silveira Martins, 10 , Cabula , Salvador, Bahia
+Numero de telefone: (71)99876-5432
 
